@@ -5,13 +5,46 @@ import org.sql2o.*;
 public class Monster {
   private String monsterName;
   private int monsterId;
+  private int monsterLevel;
   private int monsterDefense;
   private int monsterAttack;
-  private int monsterGold;
   private int monsterSpeed;
   private int monsterStamina;
+  private int monsterGold;
   private int monsterExp;
 
+  public lowLevelMonster(int monsterLevel) {
+    this.monsterLevel = monsterLevel;
+    this.monsterId = monsterId;
+    this.setStats();
+    this.setLowMonsterGold();
+    this.setLowMonsterExperience();
+  }
+
+  public medLevelMonster(int monsterLevel) {
+    this.monsterLevel = monsterLevel;
+    this.monsterId = monsterId;
+    this.setStats();
+    this.setMedMonsterGold;
+    this.setMedMonsterExperience;
+  }
+
+  public highLevelMonster(int monsterLevel) {
+    this.monsterLevel = monsterLevel;
+    this.monsterId = monsterId;
+    this.setStats();
+    this.setHighMonsterGold;
+    this.setHighMonsterExperience;
+  }
+
+  public setStats() {
+    if (monsterLevel == 1) {
+      monsterAttack = 4;
+      monsterDefense = 4;
+      monsterSpeed = 4;
+      monsterStamina = 8;
+    }
+  }
 
   public String getMonsterName() {
     return monsterName;
