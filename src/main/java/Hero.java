@@ -9,6 +9,7 @@ import org.sql2o.*;
 
 public class Hero {
   private int id;
+  private int experience;
   private String name;
   private int gold;
   private int attack;
@@ -27,12 +28,18 @@ public class Hero {
   private final static int MAX_GOLD = 15;
 
 
-  public Hero(String name) {
+  public Hero(String name, int beardChoice) {
     this.name = name;
+    this.setExperience();
+    this.setStats(bearcChoice);
   }
 
   public int getId() {
     return id;
+  }
+
+  public int getExperience() {
+    return experience;
   }
 
   public String getName() {
@@ -57,6 +64,29 @@ public class Hero {
 
   public int getStamina() {
     return stamina;
+  }
+
+  public int setExperience() {
+    experience = 0;
+  }
+
+  public setStats(int beardChoice) {
+    if (beardChoice == 1) {
+      this.speed = 5;
+      this.defense = 3;
+      this.attack = 3;
+      this.stamina = 10;
+    } else if (beardChoice == 2) {
+      this.speed = 3;
+      this.defense = 5;
+      this.attack = 3;
+      this.stamina = 10;
+    } else {
+      this.speed = 3;
+      this.defense = 3;
+      this.attack = 5;
+      this.stamina = 10;
+    }
   }
 
   public Boolean isAlive() {
