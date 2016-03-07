@@ -33,7 +33,7 @@ public class Hero {
     this.name = name;
     this.beardChoice = beardChoice;
     this.setExperience();
-    this.setStats(bearcChoice);
+    this.setStats(beardChoice);
   }
 
   public int getId() {

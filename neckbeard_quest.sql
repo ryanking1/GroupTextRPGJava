@@ -146,12 +146,6 @@ ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
 CREATE TABLE monster (
     id integer NOT NULL,
     monster_name character varying,
-    monster_defense integer,
-    monster_attack integer,
-    monster_gold integer,
-    monster_speed integer,
-    monster_stamina integer,
-    monster_exp integer
 );
 
 
