@@ -9,8 +9,9 @@ import org.sql2o.*;
 
 public class Hero {
   private int id;
-  private int experience;
+  private int beardChoice;
   private String name;
+  private int experience;
   private int gold;
   private int attack;
   private int defense;
@@ -30,6 +31,7 @@ public class Hero {
 
   public Hero(String name, int beardChoice) {
     this.name = name;
+    this.beardChoice = beardChoice;
     this.setExperience();
     this.setStats(bearcChoice);
   }
