@@ -52,4 +52,25 @@ public class Player{
 		}
 	}
 
+	public static Player find(String userName, String password){
+		try(Connection con = DB.sql2o.open()){
+			String sql = "SELECT id, user_name AS userName, password FROM players WHERE user_name = :userName AND password = :password";
+			return con.createQuery(sql)
+			.addParameter("userName", userName)
+			.addParameter("password", password)
+			.executeAndFetchFirst(Player.class);
+		}
+	}
+
+	public static Player find(int searchId){
+		try(Connection con = DB.sql2o.open()){
+			String sql = "SELECT id, user_name AS userName, password FROM players WHERE id = :searchId";
+			return con.createQuery(sql)
+			.addParameter("searchId", searchId)
+			.executeAndFetchFirst(Player.class);
+		}
+	}
+
+
+
 }

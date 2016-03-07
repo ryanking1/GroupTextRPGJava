@@ -45,4 +45,18 @@ public class PlayerTest{
 		player.save();
 		assertThat(Player.all().get(0), equalTo(player));
 	}
+
+	@Test
+	public void findWithUserNameAndPassword_returnsPlayerObject_true(){
+		player.save();
+		assertThat(Player.find("mklgallegos","narwhals"), equalTo(player));
+		assertThat(Player.find("admin","narwhals"), equalTo(null));
+	}
+
+	@Test
+	public void findWithId_returnsPlayerObject_true(){
+		player.save();
+		assertThat(Player.find(player.getId()), equalTo(player));
+	}
+
 }
