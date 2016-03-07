@@ -5,6 +5,7 @@ import org.sql2o.*;
 public class Monster {
   private String monsterName;
   private int monsterId;
+  private int monsterId;
   private int monsterDefense;
   private int monsterAttack;
   private int monsterGold;
