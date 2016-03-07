@@ -19,4 +19,17 @@ public class Weapon {
   public int getWeaponDamage() {
     return wepDamage;
   }
+
+  public void update(int id) {
+    this.wepName = Weapon.getWeaponName();
+    this.wepDamage = Weapon.getWeaponDamage();
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero_weapon SET wepName = :wepName, wepDamage = :wepDamage WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("wepName", wepName)
+        .addParameter("wepDamage", wepDamage)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
 }
