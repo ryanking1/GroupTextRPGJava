@@ -146,7 +146,6 @@ ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
 CREATE TABLE monster (
     id integer NOT NULL,
     monster_name character varying,
-    monster_level integer,
     monster_defense integer,
     monster_attack integer,
     monster_gold integer,
@@ -177,6 +176,40 @@ ALTER TABLE monster_id_seq OWNER TO "Guest";
 --
 
 ALTER SEQUENCE monster_id_seq OWNED BY monster.id;
+
+
+--
+-- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+--
+
+CREATE TABLE player (
+    id integer NOT NULL,
+    username character varying,
+    password character varying
+);
+
+
+ALTER TABLE player OWNER TO "Guest";
+
+--
+-- Name: player_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE player_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE player_id_seq OWNER TO "Guest";
+
+--
+-- Name: player_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE player_id_seq OWNED BY player.id;
 
 
 --
@@ -239,6 +272,13 @@ ALTER TABLE ONLY inventory ALTER COLUMN id SET DEFAULT nextval('inventory_id_seq
 --
 
 ALTER TABLE ONLY monster ALTER COLUMN id SET DEFAULT nextval('monster_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY player ALTER COLUMN id SET DEFAULT nextval('player_id_seq'::regclass);
 
 
 --
@@ -309,6 +349,21 @@ SELECT pg_catalog.setval('monster_id_seq', 1, false);
 
 
 --
+-- Data for Name: player; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY player (id, username, password) FROM stdin;
+\.
+
+
+--
+-- Name: player_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('player_id_seq', 1, false);
+
+
+--
 -- Data for Name: weapon; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
@@ -353,6 +408,14 @@ ALTER TABLE ONLY inventory
 
 ALTER TABLE ONLY monster
     ADD CONSTRAINT monster_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+--
+
+ALTER TABLE ONLY player
+    ADD CONSTRAINT player_pkey PRIMARY KEY (id);
 
 
 --
