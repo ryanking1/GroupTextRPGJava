@@ -97,6 +97,6 @@ public class Hero {
     if (stamina < 1) {
       isAlive = false;
     }
-    return isAlive
+    return isAlive;
   }
 }
