@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Battle {
 
+
   private int monsterSpeed;
   private int monsterAttack;
   private int monsterDefense;
@@ -13,7 +14,27 @@ public class Battle {
   private int heroAttack;
   private int heroDefense;
   private int heroStamina;
+  private Boolean heroWin;
+  private int hero_id;
+  private int monster_id;
 
+  public Battle(int hero_id, int monster_id) {
+    this.hero_id = hero_id;
+    this.monster_id = monster_id;
+  }
+
+  public int getHeroId() {
+    return hero_id;
+  }
+
+  public int getMonsterId() {
+    return monster_id;
+  }
+
+
+  public Boolean getHeroWin() {
+    return heroWin;
+  }
 
   public boolean regSpeedCheck() {
     if (heroSpeed >= monsterSpeed) {
@@ -82,30 +103,30 @@ public class Battle {
     return damage;
   }
 
-  public void startBattle(int hero_id, int monster_id) {
+  public static void startBattle(int heroId, int monsterId) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO battle (hero_id, monster_id, hero_win) VALUES (:hero_id, :monster_id, :hero_win)";
       con.createQuery(sql)
-      .addParameter("hero_id", hero_id)
-      .addParameter("monster_id", monster_id)
+      .addParameter("hero_id", heroId)
+      .addParameter("monster_id", monsterId)
       .addParameter("hero_win", false)
       .executeUpdate();
     }
   }
 
   public boolean determineWinner() {
-    boolean monsterWin = true;
-    if (monsterStamina == 0){
-      monsterWin = false;
+    boolean heroWin = false;
+      if (monsterStamina == 0){
+        heroWin = true;
+      }
+    return heroWin;
     }
-    return monsterWin;
-  }
 
   public void finishBattle() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE battle SET hero_win = true WHERE monster_id = :id";
+      String sql = "UPDATE battle SET win = true WHERE monster_id = :id";
       con.createQuery(sql)
-      .addParameter("hero_win", true)
+      .addParameter("id", monster_id)
       .executeUpdate();
     }
   }

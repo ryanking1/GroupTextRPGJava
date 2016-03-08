@@ -63,8 +63,27 @@ public class Hero {
     return stamina;
   }
 
-  public int setExperience() {
-    return experience = 0;
+  public void setExperience() {
+    experience = 0;
+  }
+
+  //added by Michael for testing
+  public void setStamina(int stamina){
+    this.stamina = stamina;
+  }
+
+  public void setAttack(int attack){
+    this.attack = attack;
+  }
+
+  @Override
+  public boolean equals(Object otherHero){
+    if(!(otherHero instanceof Hero)){
+      return false;
+    } else {
+      Hero hero = (Hero) otherHero;
+      return this.getId() == hero.getId();
+    }
   }
 
   public void setStats(int beardChoice) {
@@ -95,18 +114,18 @@ public class Hero {
     return isAlive;
   }
 
-  public int getMonsterLevel(int attack, int defense, int speed) {
+  public int getMonsterLevel(){
     this.attack = attack;
     this.defense = defense;
     this.speed = speed;
-    int statAverage = (attack + defense + speed)/3;
+    int monsterLevel = (attack + defense + speed)/3;
     // (int) Math.ceil(statAverage / 100.0) - 2;
-    return statAverage;
+    return monsterLevel;
   }
 
   public void levelUpAttack() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE hero SET attack = attack + 1 WHERE id = :id";
+      String sql = "UPDATE heroes SET attack = attack + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -115,7 +134,7 @@ public class Hero {
 
   public void levelUpDefense() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE hero SET defense = defense + 1 WHERE id = :id";
+      String sql = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -124,7 +143,7 @@ public class Hero {
 
   public void levelUpSpeed() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE hero SET speed = speed + 1 WHERE id = :id";
+      String sql = "UPDATE heroes SET speed = speed + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -133,7 +152,7 @@ public class Hero {
 
   public void levelUpStamina() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE hero SET speed = speed + 2 WHERE id = :id";
+      String sql = "UPDATE heroes SET stamina = stamina + 2 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -142,7 +161,7 @@ public class Hero {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
+      String sql = "INSERT INTO heroes(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("beardChoice", this.beardChoice)
         .addParameter("name", this.name)
@@ -157,37 +176,60 @@ public class Hero {
     }
   }
 
-  public static Hero find(int id) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM hero where id=:id";
-      Hero hero = con.createQuery(sql)
-        .addParameter("id", id)
-        .executeAndFetchFirst(Hero.class);
-      return hero;
-    }
-  }
+  //implement all method for Hero Class
 
   public void delete() {
    try(Connection con = DB.sql2o.open()) {
-     String sql = "DELETE FROM hero WHERE id = :id";
+     String sql = "DELETE FROM heroes WHERE id = :id";
      con.createQuery(sql)
      .addParameter("id", id)
      .executeUpdate();
 
-    String inventoryDeleteQuery = "DELETE FROM inventory WHERE hero_id = :heroId";
+    String inventoryDeleteQuery = "DELETE FROM inventory WHERE hero_id = :id";
     con.createQuery(inventoryDeleteQuery)
-    .addParameter("heroId", this.getId())
+    .addParameter("id", this.getId())
     .executeUpdate();
 
-    String weaponDeleteQuery = "DELETE FROM weapon WHERE hero_id = :heroId";
-    con.createQuery(weaponDeleteQuery)
-    .addParameter("heroId", this.getId())
+    String battleDeleteQuery = "DELETE FROM battle WHERE hero_id = :id";
+    con.createQuery(battleDeleteQuery)
+    .addParameter("id", this.getId())
     .executeUpdate();
+    }
+  }
 
-    String armorDeleteQuery = "DELETE FROM armor WHERE hero_id = :heroId";
-    con.createQuery(armorDeleteQuery)
-    .addParameter("heroId", this.getId())
-    .executeUpdate();
+  public void update(String newName) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET name = :newName WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("name", newName)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public static Hero find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM books WHERE id = :id";
+      Hero hero = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Hero.class);
+      return hero;
+    }
+  }
+
+  public static List<Hero> all() {
+    String sql = " SELECT * FROM hero ORDER BY name";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(Hero.class);
+    }
+  }
+
+  public static List<Inventory> getInventory() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT inventory.* FROM inventory JOIN hero ON (inventory.hero_id = hero.id) WHERE hero.id = :id";
+      return con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetch(Inventory.class);
     }
   }
 }

@@ -11,7 +11,6 @@ public class Monster {
   private int monsterAttack;
   private int monsterSpeed;
   private int monsterStamina;
-  private boolean monsterWin;
   private int monsterGold;
   private int monsterExp;
 
@@ -101,7 +100,7 @@ public class Monster {
   }
 
   public int getMonsterLevel() {
-    return monsterLevel;
+      return monsterLevel;
   }
 
   @Override
@@ -121,11 +120,11 @@ public class Monster {
     }
   }
 
-  public static Monster find(int id) {
+  public static Monster find(int monsterId) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM monster WHERE id = :id";
       Monster monster = con.createQuery(sql)
-      .addParameter("id", id)
+      .addParameter("id", monsterId)
       .executeAndFetchFirst(Monster.class);
       return monster;
     }
@@ -145,7 +144,7 @@ public class Monster {
   //   }
   // }
 
-  public void update(String newName, int monsterId) {
+  public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE monster SET name = :newName WHERE id = :id";
       con.createQuery(sql)
