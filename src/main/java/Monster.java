@@ -156,7 +156,7 @@ public class Monster {
     }
   }
 
-  public void startBattle(int heroId) {
+  public static void startBattle(int heroId) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO battle (hero_id, monster_id, hero_win) VALUES (:hero_id, :monster_id, :hero_win)";
       con.createQuery(sql)
@@ -167,16 +167,15 @@ public class Monster {
     }
   }
 
-  public void determineWinner() {
+  public static void determineWinner() {
     monsterWin = true;
-    if (monsterStamina == 0){
-      monsterWin = false;
-    }
+      if (monsterStamina == 0){
+        monsterWin = false;
+      }
     return monsterWin;
     }
-  }
 
-  public void finishBattle() {
+  public static void finishBattle() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE battle SET win = true WHERE monster_id = :id";
       con.createQuery(sql)
@@ -184,3 +183,4 @@ public class Monster {
       .executeUpdate();
     }
   }
+}
