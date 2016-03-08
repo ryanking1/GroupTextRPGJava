@@ -19,4 +19,17 @@ public class Armor {
   public int getArmorDefense() {
     return armorDefense;
   }
+
+  public void update(int id) {
+    this.armorName = Armor.getArmorName();
+    this.armorDefense = Armor.getArmorDefense();
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero_armor SET armorName = :armorName, armorDefense = :armorDefense WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("armorName", armorName)
+        .addParameter("armorDefense", armorDefense)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
 }

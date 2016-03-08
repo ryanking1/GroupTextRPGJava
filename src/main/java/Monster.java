@@ -13,36 +13,40 @@ public class Monster {
   private int monsterGold;
   private int monsterExp;
 
-  public lowLevelMonster(int monsterLevel) {
+  public Monster(int monsterLevel) {
     this.monsterLevel = monsterLevel;
     this.monsterId = monsterId;
     this.setStats();
-    this.setLowMonsterGold();
-    this.setLowMonsterExperience();
+    this.setMonsterGold();
+    this.setMonsterExperience();
   }
 
-  public medLevelMonster(int monsterLevel) {
-    this.monsterLevel = monsterLevel;
-    this.monsterId = monsterId;
-    this.setStats();
-    this.setMedMonsterGold;
-    this.setMedMonsterExperience;
-  }
-
-  public highLevelMonster(int monsterLevel) {
-    this.monsterLevel = monsterLevel;
-    this.monsterId = monsterId;
-    this.setStats();
-    this.setHighMonsterGold;
-    this.setHighMonsterExperience;
-  }
-
-  public setStats() {
-    if (monsterLevel == 1) {
+  public void setStats() {
+    if (monsterLevel >= 1 && monsterLevel <=2) {
       monsterAttack = 4;
       monsterDefense = 4;
       monsterSpeed = 4;
       monsterStamina = 8;
+    } else if (monsterLevel >=3 && monsterLevel <=4) {
+      monsterAttack = 6;
+      monsterDefense = 6;
+      monsterSpeed = 6;
+      monsterStamina = 12;
+    } else if (monsterLevel >=5 && monsterLevel <=6) {
+      monsterAttack = 8;
+      monsterDefense = 8;
+      monsterSpeed = 8;
+      monsterStamina = 16;
+    } else if (monsterLevel >=7 && monsterLevel <=8) {
+      monsterAttack = 10;
+      monsterDefense = 10;
+      monsterSpeed = 10;
+      monsterStamina = 20;
+    } else {
+      monsterAttack = 12;
+      monsterDefense = 12;
+      monsterSpeed = 12;
+      monsterStamina = 28;
     }
   }
 
