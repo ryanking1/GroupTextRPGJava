@@ -99,4 +99,89 @@ public class Hero {
     }
     return isAlive;
   }
+
+  public getMonsterLevel(int attack, intdefense, int speed) {
+    this.attack = attack;
+    this.defense = defense;
+    this.speed = speed;
+    int statAverage = (attack + defense + speed)/3;
+    // (int) Math.ceil(statAverage / 100.0) - 2;
+    return statAverage;
+  }
+
+  public void levelUpAttack() {
+    try(Connection con = DB.sql20.open()) {
+      String sql = "UPDATE hero SET attack = attack + 1 WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void levelUpDefense() {
+    try(Connection con = DB.sql20.open()) {
+      String sql = "UPDATE hero SET defense = defense + 1 WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void levelUpSpeed() {
+    try(Connection con = DB.sql20.open()) {
+      String sql = "UPDATE hero SET speed = speed + 1 WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void levelUpStamina() {
+    try(Connection con = DB.sql20.open()) {
+      String sql = "UPDATE hero SET speed = speed + 2 WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("beardChoice", this.beardChoice)
+        .addParameter("name", this.name)
+        .addParameter("experience", this.experience)
+        .addParameter("gold", this.gold)
+        .addParameter("attack", this.attack)
+        .addParameter("defense", this.defense)
+        .addParameter("speed", this.speed)
+        .addParameter("stamina", this.stamina)
+        .executeUpdate()
+        .getKey();
+    }
+  }
+
+  public void delete() {
+   try(Connection con = DB.sql2o.open()) {
+     String sql = "DELETE FROM hero WHERE id = :id";
+     con.createQuery(sql)
+     .addParameter("id", id)
+     .executeUpdate();
+
+    String inventoryDeleteQuery = "DELETE FROM inventory WHERE hero_id = :heroId";
+    con.createQuery(inventoryDeleteQuery)
+    .addParameter("heroId", this.getId())
+    .executeUpdate();
+
+    String weaponDeleteQuery = "DELETE FROM weapon WHERE hero_id = :heroId";
+    con.createQuery(weaponDeleteQuery)
+    .addParameter("heroId", this.getId())
+    .executeUpdate();
+
+    String armorDeleteQuery = "DELETE FROM armor WHERE hero_id = :heroId";
+    con.createQuery(armorDeleteQuery)
+    .addParameter("heroId", this.getId())
+    .executeUpdate();
+    }
 }

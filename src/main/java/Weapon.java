@@ -7,7 +7,6 @@ public class Weapon {
   private int wepId;
   private int wepDamage;
 
-
   public String getWeaponName() {
     return wepName;
   }
