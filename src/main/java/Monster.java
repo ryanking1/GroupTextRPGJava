@@ -1,20 +1,17 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import org.sql2o.*;
 
 public class Monster {
   private String monsterName;
-<<<<<<< HEAD
-  private int monsterId;
-  private int monsterLevel;
-=======
   private int monsterLevel;
   private int monsterId;
->>>>>>> 1b9e9a04cfc17e94863781c0a7e1ad6f702df65c
   private int monsterDefense;
   private int monsterAttack;
   private int monsterSpeed;
   private int monsterStamina;
+  private boolean monsterWin;
   private int monsterGold;
   private int monsterExp;
 
@@ -55,31 +52,126 @@ public class Monster {
     }
   }
 
-  public String getMonsterName() {
+  public int setMonsterGold() {
+    monsterGold = ThreadLocalRandom.current().nextInt(5, 11 + 1);
+    return monsterGold;
+  }
+
+  public int setMonsterExperience() {
+    if (monsterLevel == 1) {
+      monsterExp = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+    } if else (monsterLevel == 2) {
+        monsterExp = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+    } if else (monsterLevel == 3 || monsterLevel == 4 || monsterLevel == 5) {
+        monsterExp = ThreadLocalRandom.current().nextInt(3, 5 + 1);
+    } if else (monsterLevel == 6 || monsterLevel == 7 || monsterLevel == 8) {
+        monsterExp = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+    } else {
+        monsterExp = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+    }
+    return monsterExp;
+  }
+
+  public static String getMonsterName() {
     return monsterName;
   }
 
-  public int getMonsterId() {
+  public static int getMonsterId() {
     return monsterId;
   }
 
-  public int getMonsterDefense() {
+  public static int getMonsterDefense() {
     return monsterDefense;
   }
 
-  public int getMonsterAttack() {
+  public static int getMonsterAttack() {
     return monsterAttack;
   }
-  public int getMonsterGold() {
+  public static int getMonsterGold() {
     return monsterGold;
   }
-  public int getMonsterSpeed() {
+  public static int getMonsterSpeed() {
     return monsterSpeed;
   }
-  public int getMonsterStamina() {
+  public static int getMonsterStamina() {
     return monsterStamina;
   }
-  public int getMonsterExp() {
+  public static int getMonsterExp() {
     return monsterExp;
   }
+
+  public static int getHeroMonsterLevel() {
+
+      return monsterLevel;
+  }
+
+  @Override
+  public boolean equals(Object otherMonster){
+    if (!(otherMonster instanceof Monster)) {
+      return false;
+    } else {
+      Monster newMonster = (Monster) otherMonster;
+      return this.getName().equals(newMonster.getName()) && this.getmonsterLevel() == newMonster.getmonsterLevel() && this.getMonsterId() == newMonster.getMonsterId() && this.getMonsterDefense() == newMonster.getMonsterDefense() && this.getmonsterAttack() == newMonster.getmonsterAttack() && this.getmonsterSpeed() == newMonster.getmonsterSpeed() && this.getmonsterStamina() == newMonster.getmonsterStamina() && this.getmonsterGold() == newMonster.getmonsterGold() && this.getmonsterExp() == newMonster.getmonsterExp();
+    }
+  }
+
+  public static List<Monster> all() {
+    String sql = " SELECT * FROM monster ORDER BY name";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(Monster.class);
+    }
+  }
+
+  public static Monster find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM monster WHERE id = :id";
+      Monster monster = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Monster.class);
+      return monster;
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM monster WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+
+      String joinDelete = "DELETE FROM battle WHERE monster_id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void update(String newTitle, int newCopies) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE monster SET name = :newName WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("name", newName)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void startBattle(int heroId) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "INSERT INTO battle (hero_id, monster_id, win) VALUES (:hero_id, :monster_id, :win)";
+    con.createQuery(sql)
+    .addParameter("author_id", authorId)
+    .addParameter("book_id", id)
+    .addParameter("win", false)
+    .executeUpdate();
+  }
+
+  public void finishBattle() {
+    monsterWin = true;
+    if (monsterStamina == 0){
+      monsterWin = false;
+    }
+    return monsterWin;      
+  }
+}
 }
