@@ -68,6 +68,10 @@ public class Hero {
     return stamina;
   }
 
+  public int setExperience() {
+    experience = 0;
+  }
+
   public void setStats(int beardChoice) {
     if (beardChoice == 1) {
       this.speed = 5;
