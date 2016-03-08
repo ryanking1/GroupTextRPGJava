@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE armor (
@@ -64,7 +64,7 @@ ALTER SEQUENCE armor_id_seq OWNED BY armor.id;
 
 
 --
--- Name: battle; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: battle; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE battle (
@@ -99,7 +99,7 @@ ALTER SEQUENCE battle_id_seq OWNED BY battle.id;
 
 
 --
--- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE hero (
@@ -139,7 +139,7 @@ ALTER SEQUENCE hero_id_seq OWNED BY hero.id;
 
 
 --
--- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE inventory (
@@ -173,7 +173,7 @@ ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
 
 
 --
--- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE monster (
@@ -212,7 +212,7 @@ ALTER SEQUENCE monster_id_seq OWNED BY monster.id;
 
 
 --
--- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE player (
@@ -246,7 +246,7 @@ ALTER SEQUENCE player_id_seq OWNED BY player.id;
 
 
 --
--- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE weapon (
@@ -434,7 +434,7 @@ SELECT pg_catalog.setval('weapon_id_seq', 1, false);
 
 
 --
--- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY armor
@@ -442,7 +442,7 @@ ALTER TABLE ONLY armor
 
 
 --
--- Name: battle_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: battle_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY battle
@@ -450,7 +450,7 @@ ALTER TABLE ONLY battle
 
 
 --
--- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY hero
@@ -458,7 +458,7 @@ ALTER TABLE ONLY hero
 
 
 --
--- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY inventory
@@ -466,7 +466,7 @@ ALTER TABLE ONLY inventory
 
 
 --
--- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY monster
@@ -474,7 +474,7 @@ ALTER TABLE ONLY monster
 
 
 --
--- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY player
@@ -482,7 +482,7 @@ ALTER TABLE ONLY player
 
 
 --
--- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY weapon
@@ -502,4 +502,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-

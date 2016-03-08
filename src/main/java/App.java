@@ -49,6 +49,6 @@ public class App {
       model.put("player", player);
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine()); 
+    }, new VelocityTemplateEngine());
   }
 }
