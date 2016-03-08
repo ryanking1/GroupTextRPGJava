@@ -126,7 +126,7 @@ public class Monster {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM monster WHERE id = :id";
       Monster monster = con.createQuery(sql)
-      .addParameter("id", id)
+      .addParameter("id", monsterId)
       .executeAndFetchFirst(Monster.class);
       return monster;
     }
@@ -151,27 +151,36 @@ public class Monster {
       String sql = "UPDATE monster SET name = :newName WHERE id = :id";
       con.createQuery(sql)
       .addParameter("name", newName)
-      .addParameter("id", id)
+      .addParameter("id", monsterId)
       .executeUpdate();
     }
   }
 
   public void startBattle(int heroId) {
-  try(Connection con = DB.sql2o.open()) {
-    String sql = "INSERT INTO battle (hero_id, monster_id, win) VALUES (:hero_id, :monster_id, :win)";
-    con.createQuery(sql)
-    .addParameter("author_id", authorId)
-    .addParameter("book_id", id)
-    .addParameter("win", false)
-    .executeUpdate();
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO battle (hero_id, monster_id, hero_win) VALUES (:hero_id, :monster_id, :hero_win)";
+      con.createQuery(sql)
+      .addParameter("hero_id", heroId)
+      .addParameter("monster_id", monsterId)
+      .addParameter("hero_win", false)
+      .executeUpdate();
+    }
   }
 
-  public void finishBattle() {
+  public void determineWinner() {
     monsterWin = true;
     if (monsterStamina == 0){
       monsterWin = false;
     }
-    return monsterWin;      
+    return monsterWin;
+    }
   }
-}
-}
+
+  public void finishBattle() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE battle SET win = true WHERE monster_id = :id";
+      con.createQuery(sql)
+      .addParameter("id", monsterId)
+      .executeUpdate();
+    }
+  }
