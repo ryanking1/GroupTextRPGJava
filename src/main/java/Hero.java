@@ -1,10 +1,5 @@
 import java.util.List;
 import java.util.ArrayList;
-// import org.apache.commons.lang.WordUtils;
-// import java.util.Date;
-// import java.util.Calendar;
-// import java.text.DateFormat;
-// import java.text.SimpleDateFormat;
 import org.sql2o.*;
 
 public class Hero {
@@ -69,7 +64,7 @@ public class Hero {
   }
 
   public int setExperience() {
-    experience = 0;
+    return experience = 0;
   }
 
   public void setStats(int beardChoice) {
