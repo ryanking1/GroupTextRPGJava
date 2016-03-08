@@ -208,4 +208,12 @@ public class Hero {
     }
   }
 
+  public static List<Inventory> getInventory() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT inventory.* FROM inventory JOIN hero ON (inventory.hero_id = hero.id) WHERE hero.id = :id";
+      return con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetch(Inventory.class);
+    }
+  }
 }

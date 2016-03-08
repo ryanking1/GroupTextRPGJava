@@ -14,10 +14,27 @@ public class Battle {
   private int heroAttack = Hero.getAttack();
   private int heroDefense = Hero.getDefense();
   private int heroStamina = Hero.getStamina();
-  private Boolean monsterWin;
+  private Boolean heroWin;
+  private int hero_id;
+  private int monster_id;
 
-  public static Boolean getMonsterWin() {
-    return monsterWin;
+  public Battle(int hero_id, int monster_id) {
+    this.hero_id = hero_id;
+    this.monster_id = monster_id;
+    this.startBattle();
+  }
+
+  public static int getHeroId() {
+    return hero_id;
+  }
+
+  public static int getMonsterId() {
+    return monster_id;
+  }
+
+
+  public static Boolean getHeroWin() {
+    return herorWin;
   }
 
   public boolean regSpeedCheck() {
@@ -99,11 +116,11 @@ public class Battle {
   }
 
   public static void determineWinner() {
-    monsterWin = true;
+    heroWin = false;
       if (monsterStamina == 0){
-        monsterWin = false;
+        heroWin = true;
       }
-    return monsterWin;
+    return heroWin;
     }
 
   public static void finishBattle() {
