@@ -1,11 +1,29 @@
 hero.vtl
 
-Welcome to the game $hero.getName()
+<p>Welcome to the game $hero.getName()</p>
 
-Speed: $hero.getSpeed()
-Attack: $hero.getAttack()
-Defense: $hero.getDefense()
-Stamina: $hero.getStamina()
-Experience: $hero.getExperience()
-Currency: $hero.getCurrency()
-Hero ID: $hero.getId()
+<ul>
+<li>Speed: $hero.getSpeed()</li>
+<li>Attack: $hero.getAttack()</li>
+<li>Defense: $hero.getDefense()</li>
+<li>Stamina: $hero.getStamina()</li>
+<li>Experience: $hero.getExperience()</li>
+<li>Currency: $hero.getCurrency()</li>
+<li>Hero ID: $hero.getId()</li>
+</ul>
+
+
+<form action='/fightMonster' method='post'>
+  <label for="monster">Select a Monster</label>
+  <select id='monster' name='monster' type='text'>
+    #foreach($monster in $monsters)
+      <option value="$monster.getId()"> $monster.getName() </option>
+    #end
+  </select>
+  <button type='submit'>Fight</button>
+</form>
+
+<form action="/fightBoss" method="post">
+  <label for="boss">Fight Boss?</label>
+  <button type="submit" class="btn btn-primary">Fight</button>
+</form>
