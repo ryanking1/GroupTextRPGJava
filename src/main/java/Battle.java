@@ -50,7 +50,7 @@ public class Battle {
     Random rand = new Random();
     int range = 2 - 1 + 1;
     int rn = rand.nextInt(range) + 1;
-    int damage = (heroAttack(rn) - monsterDefense) * 1.75;
+    int damage = (heroAttack(rn) - monsterDefense) * 1.3;
 
     if(damage > 0){
       return damage;
@@ -66,7 +66,7 @@ public class Battle {
     if (monsterStamina < 1) {
       isAlive = false;
     }
-    return isAlive
+    return isAlive;
   }
 
   public int monsterAttack() {
