@@ -146,7 +146,7 @@ public class Monster {
     }
   }
 
-  public void update(String newTitle, int newCopies) {
+  public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE monster SET name = :newName WHERE id = :id";
       con.createQuery(sql)

@@ -169,19 +169,14 @@ public class Hero {
      .addParameter("id", id)
      .executeUpdate();
 
-    String inventoryDeleteQuery = "DELETE FROM inventory WHERE hero_id = :heroId";
+    String inventoryDeleteQuery = "DELETE FROM inventory WHERE hero_id = :id";
     con.createQuery(inventoryDeleteQuery)
-    .addParameter("heroId", this.getId())
+    .addParameter("id", this.getId())
     .executeUpdate();
 
-    String weaponDeleteQuery = "DELETE FROM weapon WHERE hero_id = :heroId";
+    String battleDeleteQuery = "DELETE FROM battle WHERE hero_id = :id";
     con.createQuery(weaponDeleteQuery)
-    .addParameter("heroId", this.getId())
-    .executeUpdate();
-
-    String armorDeleteQuery = "DELETE FROM armor WHERE hero_id = :heroId";
-    con.createQuery(armorDeleteQuery)
-    .addParameter("heroId", this.getId())
+    .addParameter("id", this.getId())
     .executeUpdate();
     }
 }
