@@ -1,3 +1,19 @@
 index.vtl
 
 <h1>Welcome $player.getUserName()</h1>
+
+Please Choose a Hero Type:
+
+<form action='/createHero' method='post'>
+  <label for="heroType">Hero Type</label>
+  <select id='heroType' name='heroType' type='text'>
+      <option value="1"> Swift Beard </option>
+      <option value="2"> Hard Beard </option>
+      <option value="3"> Strong Beard</option>
+  </select>
+
+  <label for="heroName">Hero Name:</label>
+  <input id="heroName" name="heroName" type="text">
+
+  <button type="submit">Submit</button>
+</form>

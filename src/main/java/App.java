@@ -16,6 +16,15 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/hero/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params(":id"));
+      Hero hero = Hero.find(id);
+      model.put("hero", hero);
+      model.put("template", "templates/hero.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     //CREATE PLAYER OBJECT
     post("/login/new", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
@@ -50,5 +59,15 @@ public class App {
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    post("/createHero", (request, response) -> {
+     int beardChoice = Integer.parseInt(request.queryParams("heroType"));
+     String name = request.queryParams("heroName");
+     Hero newHero = new Hero(name, beardChoice);
+     newHero.save();
+     int heroId = newHero.getId();
+     response.redirect("/hero/" + heroId);
+     return null;
+   });
   }
 }

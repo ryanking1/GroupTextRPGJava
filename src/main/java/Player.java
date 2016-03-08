@@ -26,7 +26,7 @@ public class Player{
 
 	public static List<Player> all(){
 		try(Connection con = DB.sql2o.open()){
-			String sql = "SELECT id, user_name AS userName, password FROM players";
+			String sql = "SELECT id, user_name AS userName, password FROM player";
 			return con.createQuery(sql).executeAndFetch(Player.class);
 		}
 	}
@@ -43,7 +43,7 @@ public class Player{
 
 	public void save(){
 		try(Connection con = DB.sql2o.open()){
-			String sql = "INSERT INTO players (user_name, password) VALUES (:userName, :password)";
+			String sql = "INSERT INTO player (user_name, password) VALUES (:userName, :password)";
 			this.id = (int) con.createQuery(sql, true)
 			.addParameter("userName", this.userName)
 			.addParameter("password", this.password)
@@ -54,7 +54,7 @@ public class Player{
 
 	public static Player find(String userName, String password){
 		try(Connection con = DB.sql2o.open()){
-			String sql = "SELECT id, user_name AS userName, password FROM players WHERE user_name = :userName AND password = :password";
+			String sql = "SELECT id, user_name AS userName, password FROM player WHERE user_name = :userName AND password = :password";
 			return con.createQuery(sql)
 			.addParameter("userName", userName)
 			.addParameter("password", password)
@@ -64,7 +64,7 @@ public class Player{
 
 	public static Player find(int searchId){
 		try(Connection con = DB.sql2o.open()){
-			String sql = "SELECT id, user_name AS userName, password FROM players WHERE id = :searchId";
+			String sql = "SELECT id, user_name AS userName, password FROM player WHERE id = :searchId";
 			return con.createQuery(sql)
 			.addParameter("searchId", searchId)
 			.executeAndFetchFirst(Player.class);

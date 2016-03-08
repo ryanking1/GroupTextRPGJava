@@ -125,7 +125,7 @@ public class Hero {
 
   public void levelUpAttack() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE heroes SET attack = attack + 1 WHERE id = :id";
+      String sql = "UPDATE hero SET attack = attack + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -134,7 +134,7 @@ public class Hero {
 
   public void levelUpDefense() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+      String sql = "UPDATE hero SET defense = defense + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -143,7 +143,7 @@ public class Hero {
 
   public void levelUpSpeed() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE heroes SET speed = speed + 1 WHERE id = :id";
+      String sql = "UPDATE hero SET speed = speed + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -152,7 +152,7 @@ public class Hero {
 
   public void levelUpStamina() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE heroes SET stamina = stamina + 2 WHERE id = :id";
+      String sql = "UPDATE hero SET stamina = stamina + 2 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -161,7 +161,7 @@ public class Hero {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO heroes(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
+      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("beardChoice", this.beardChoice)
         .addParameter("name", this.name)
@@ -209,7 +209,7 @@ public class Hero {
 
   public static Hero find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM books WHERE id = :id";
+      String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina FROM hero WHERE id = :id";
       Hero hero = con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(Hero.class);
@@ -224,12 +224,12 @@ public class Hero {
     }
   }
 
-  public static List<Inventory> getInventory() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT inventory.* FROM inventory JOIN hero ON (inventory.hero_id = hero.id) WHERE hero.id = :id";
-      return con.createQuery(sql)
-      .addParameter("id", id)
-      .executeAndFetch(Inventory.class);
-    }
-  }
+  // public static List<Inventory> getInventory() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT inventory.* FROM inventory JOIN hero ON (inventory.hero_id = hero.id) WHERE hero.id = :id";
+  //     return con.createQuery(sql)
+  //     .addParameter("id", id)
+  //     .executeAndFetch(Inventory.class);
+  //   }
+  // }
 }
