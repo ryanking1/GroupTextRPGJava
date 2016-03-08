@@ -20,9 +20,9 @@ public class Armor {
     return armorDefense;
   }
 
-  public void update(int id) {
-    this.armorName = Armor.getArmorName();
-    this.armorDefense = Armor.getArmorDefense();
+  public void update(String armorName, int armorDefense, int id) {
+    this.armorName = armorName;
+    this.armorDefense = armorDefense;
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero_armor SET armorName = :armorName, armorDefense = :armorDefense WHERE id = :id";
       con.createQuery(sql)

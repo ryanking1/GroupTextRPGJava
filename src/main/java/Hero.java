@@ -100,7 +100,7 @@ public class Hero {
     return isAlive;
   }
 
-  public getMonsterLevel(int attack, intdefense, int speed) {
+  public int getMonsterLevel(int attack, int defense, int speed) {
     this.attack = attack;
     this.defense = defense;
     this.speed = speed;
@@ -110,7 +110,7 @@ public class Hero {
   }
 
   public void levelUpAttack() {
-    try(Connection con = DB.sql20.open()) {
+    try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET attack = attack + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
@@ -119,7 +119,7 @@ public class Hero {
   }
 
   public void levelUpDefense() {
-    try(Connection con = DB.sql20.open()) {
+    try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET defense = defense + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
@@ -128,7 +128,7 @@ public class Hero {
   }
 
   public void levelUpSpeed() {
-    try(Connection con = DB.sql20.open()) {
+    try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET speed = speed + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
@@ -137,7 +137,7 @@ public class Hero {
   }
 
   public void levelUpStamina() {
-    try(Connection con = DB.sql20.open()) {
+    try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET speed = speed + 2 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
@@ -159,6 +159,16 @@ public class Hero {
         .addParameter("stamina", this.stamina)
         .executeUpdate()
         .getKey();
+    }
+  }
+
+  public static Hero find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM hero where id=:id";
+      Hero hero = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Hero.class);
+      return hero;
     }
   }
 
@@ -184,4 +194,5 @@ public class Hero {
     .addParameter("heroId", this.getId())
     .executeUpdate();
     }
+  }
 }

@@ -4,13 +4,8 @@ import org.sql2o.*;
 
 public class Monster {
   private String monsterName;
-<<<<<<< HEAD
   private int monsterId;
   private int monsterLevel;
-=======
-  private int monsterLevel;
-  private int monsterId;
->>>>>>> 1b9e9a04cfc17e94863781c0a7e1ad6f702df65c
   private int monsterDefense;
   private int monsterAttack;
   private int monsterSpeed;
@@ -55,31 +50,31 @@ public class Monster {
     }
   }
 
-  public String getMonsterName() {
+  public static String getMonsterName() {
     return monsterName;
   }
 
-  public int getMonsterId() {
+  public static int getMonsterId() {
     return monsterId;
   }
 
-  public int getMonsterDefense() {
+  public static int getMonsterDefense() {
     return monsterDefense;
   }
 
-  public int getMonsterAttack() {
+  public static int getMonsterAttack() {
     return monsterAttack;
   }
-  public int getMonsterGold() {
+  public static int getMonsterGold() {
     return monsterGold;
   }
-  public int getMonsterSpeed() {
+  public static int getMonsterSpeed() {
     return monsterSpeed;
   }
-  public int getMonsterStamina() {
+  public static int getMonsterStamina() {
     return monsterStamina;
   }
-  public int getMonsterExp() {
+  public static int getMonsterExp() {
     return monsterExp;
   }
 }

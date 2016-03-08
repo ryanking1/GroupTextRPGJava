@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Battle {
 
-//Monster is placeholder
+
   private int monsterSpeed = Monster.getMonsterSpeed();
-  private int monsterAttack = Monster.getAttack();
-  private int monsterDefense = Monster.getDefense();
-  private int monsterStamina = Monster.getStamina();
+  private int monsterAttack = Monster.getMonsterAttack();
+  private int monsterDefense = Monster.getMonsterDefense();
+  private int monsterStamina = Monster.getMonsterStamina();
   private int heroSpeed = Hero.getSpeed();
   private int heroAttack = Hero.getAttack();
   private int heroDefense = Hero.getDefense();

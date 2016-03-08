@@ -19,9 +19,9 @@ public class Weapon {
     return wepDamage;
   }
 
-  public void update(int id) {
-    this.wepName = Weapon.getWeaponName();
-    this.wepDamage = Weapon.getWeaponDamage();
+  public void update(String wepName, int wepDamage, int id) {
+    this.wepName = wepName;
+    this.wepDamage = wepDamage;
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero_weapon SET wepName = :wepName, wepDamage = :wepDamage WHERE id = :id";
       con.createQuery(sql)

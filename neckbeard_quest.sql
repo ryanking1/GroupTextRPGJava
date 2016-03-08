@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE armor (
@@ -64,7 +64,42 @@ ALTER SEQUENCE armor_id_seq OWNED BY armor.id;
 
 
 --
--- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: battle; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE battle (
+    id integer NOT NULL,
+    hero_id integer,
+    monster_id integer,
+    win boolean
+);
+
+
+ALTER TABLE battle OWNER TO "Guest";
+
+--
+-- Name: battle_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE battle_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE battle_id_seq OWNER TO "Guest";
+
+--
+-- Name: battle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE battle_id_seq OWNED BY battle.id;
+
+
+--
+-- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE hero (
@@ -104,15 +139,13 @@ ALTER SEQUENCE hero_id_seq OWNED BY hero.id;
 
 
 --
--- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE inventory (
     id integer NOT NULL,
-    name character varying,
-    classification character varying,
     hero_id integer,
-    equipped boolean
+    item_id integer
 );
 
 
@@ -140,12 +173,18 @@ ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
 
 
 --
--- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE monster (
     id integer NOT NULL,
     monster_name character varying,
+    monster_defense integer,
+    monster_attack integer,
+    monster_gold integer,
+    monster_speed integer,
+    monster_stamina integer,
+    monster_exp integer
 );
 
 
@@ -173,7 +212,7 @@ ALTER SEQUENCE monster_id_seq OWNED BY monster.id;
 
 
 --
--- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE player (
@@ -207,7 +246,7 @@ ALTER SEQUENCE player_id_seq OWNED BY player.id;
 
 
 --
--- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE weapon (
@@ -245,6 +284,13 @@ ALTER SEQUENCE weapon_id_seq OWNED BY weapon.id;
 --
 
 ALTER TABLE ONLY armor ALTER COLUMN id SET DEFAULT nextval('armor_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY battle ALTER COLUMN id SET DEFAULT nextval('battle_id_seq'::regclass);
 
 
 --
@@ -298,6 +344,21 @@ SELECT pg_catalog.setval('armor_id_seq', 1, false);
 
 
 --
+-- Data for Name: battle; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY battle (id, hero_id, monster_id, win) FROM stdin;
+\.
+
+
+--
+-- Name: battle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('battle_id_seq', 1, false);
+
+
+--
 -- Data for Name: hero; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
@@ -316,7 +377,7 @@ SELECT pg_catalog.setval('hero_id_seq', 1, false);
 -- Data for Name: inventory; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY inventory (id, name, classification, hero_id, equipped) FROM stdin;
+COPY inventory (id, hero_id, item_id) FROM stdin;
 \.
 
 
@@ -373,7 +434,7 @@ SELECT pg_catalog.setval('weapon_id_seq', 1, false);
 
 
 --
--- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY armor
@@ -381,7 +442,15 @@ ALTER TABLE ONLY armor
 
 
 --
--- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: battle_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY battle
+    ADD CONSTRAINT battle_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY hero
@@ -389,7 +458,7 @@ ALTER TABLE ONLY hero
 
 
 --
--- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY inventory
@@ -397,7 +466,7 @@ ALTER TABLE ONLY inventory
 
 
 --
--- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY monster
@@ -405,7 +474,7 @@ ALTER TABLE ONLY monster
 
 
 --
--- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY player
@@ -413,7 +482,7 @@ ALTER TABLE ONLY player
 
 
 --
--- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY weapon
@@ -433,3 +502,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
