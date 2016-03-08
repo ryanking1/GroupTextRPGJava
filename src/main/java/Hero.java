@@ -72,7 +72,7 @@ public class Hero {
     experience = 0;
   }
 
-  public setStats(int beardChoice) {
+  public void setStats(int beardChoice) {
     if (beardChoice == 1) {
       this.speed = 5;
       this.defense = 3;
