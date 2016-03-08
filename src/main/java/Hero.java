@@ -100,13 +100,13 @@ public class Hero {
     return isAlive;
   }
 
-  public getMonsterLevel(int attack, intdefense, int speed) {
+  public static getMonsterLevel(int attack, intdefense, int speed) {
     this.attack = attack;
     this.defense = defense;
     this.speed = speed;
-    int statAverage = (attack + defense + speed)/3;
+    int monsterLevel = (attack + defense + speed)/3;
     // (int) Math.ceil(statAverage / 100.0) - 2;
-    return statAverage;
+    return monsterLevel;
   }
 
   public void levelUpAttack() {
@@ -179,4 +179,26 @@ public class Hero {
     .addParameter("id", this.getId())
     .executeUpdate();
     }
+
+  public void update(String newName) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET name = :newName WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("title", newTitle)
+      .addParameter("copies", newCopies)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public static Hero find(int id) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "SELECT * FROM books WHERE id = :id";
+    Hero hero = con.createQuery(sql)
+    .addParameter("id", id)
+    .executeAndFetchFirst(Hero.class);
+    return hero;
+  }
+}
+
 }

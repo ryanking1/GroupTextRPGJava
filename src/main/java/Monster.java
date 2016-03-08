@@ -122,7 +122,7 @@ public class Monster {
     }
   }
 
-  public static Monster find(int id) {
+  public static Monster find(int monsterId) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM monster WHERE id = :id";
       Monster monster = con.createQuery(sql)
