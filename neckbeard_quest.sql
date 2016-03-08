@@ -71,7 +71,7 @@ CREATE TABLE battle (
     id integer NOT NULL,
     hero_id integer,
     monster_id integer,
-    win boolean
+    hero_win boolean
 );
 
 
@@ -347,7 +347,7 @@ SELECT pg_catalog.setval('armor_id_seq', 1, false);
 -- Data for Name: battle; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY battle (id, hero_id, monster_id, win) FROM stdin;
+COPY battle (id, hero_id, monster_id, hero_win) FROM stdin;
 \.
 
 
