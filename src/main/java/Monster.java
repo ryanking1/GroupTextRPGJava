@@ -11,7 +11,6 @@ public class Monster {
   private int monsterAttack;
   private int monsterSpeed;
   private int monsterStamina;
-  private boolean monsterWin;
   private int monsterGold;
   private int monsterExp;
 
@@ -151,34 +150,6 @@ public class Monster {
       String sql = "UPDATE monster SET name = :newName WHERE id = :id";
       con.createQuery(sql)
       .addParameter("name", newName)
-      .addParameter("id", monsterId)
-      .executeUpdate();
-    }
-  }
-
-  public static void startBattle(int heroId) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO battle (hero_id, monster_id, hero_win) VALUES (:hero_id, :monster_id, :hero_win)";
-      con.createQuery(sql)
-      .addParameter("hero_id", heroId)
-      .addParameter("monster_id", monsterId)
-      .addParameter("hero_win", false)
-      .executeUpdate();
-    }
-  }
-
-  public static void determineWinner() {
-    monsterWin = true;
-      if (monsterStamina == 0){
-        monsterWin = false;
-      }
-    return monsterWin;
-    }
-
-  public static void finishBattle() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE battle SET win = true WHERE monster_id = :id";
-      con.createQuery(sql)
       .addParameter("id", monsterId)
       .executeUpdate();
     }

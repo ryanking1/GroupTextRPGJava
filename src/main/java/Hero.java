@@ -192,13 +192,20 @@ public class Hero {
   }
 
   public static Hero find(int id) {
-  try(Connection con = DB.sql2o.open()) {
-    String sql = "SELECT * FROM books WHERE id = :id";
-    Hero hero = con.createQuery(sql)
-    .addParameter("id", id)
-    .executeAndFetchFirst(Hero.class);
-    return hero;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM books WHERE id = :id";
+      Hero hero = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Hero.class);
+      return hero;
+    }
   }
-}
+
+  public static List<Hero> all() {
+    String sql = " SELECT * FROM hero ORDER BY name";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(Hero.class);
+    }
+  }
 
 }
