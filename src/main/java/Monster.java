@@ -72,35 +72,35 @@ public class Monster {
     return monsterExp;
   }
 
-  public static String getMonsterName() {
+  public String getMonsterName() {
     return monsterName;
   }
 
-  public static int getMonsterId() {
+  public int getMonsterId() {
     return monsterId;
   }
 
-  public static int getMonsterDefense() {
+  public int getMonsterDefense() {
     return monsterDefense;
   }
 
-  public static int getMonsterAttack() {
+  public int getMonsterAttack() {
     return monsterAttack;
   }
-  public static int getMonsterGold() {
+  public int getMonsterGold() {
     return monsterGold;
   }
-  public static int getMonsterSpeed() {
+  public int getMonsterSpeed() {
     return monsterSpeed;
   }
-  public static int getMonsterStamina() {
+  public int getMonsterStamina() {
     return monsterStamina;
   }
-  public static int getMonsterExp() {
+  public int getMonsterExp() {
     return monsterExp;
   }
 
-  public static int getMonsterLevel() {
+  public int getMonsterLevel() {
     return monsterLevel;
   }
 
@@ -125,25 +125,25 @@ public class Monster {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM monster WHERE id = :id";
       Monster monster = con.createQuery(sql)
-      .addParameter("id", monsterId)
+      .addParameter("id", id)
       .executeAndFetchFirst(Monster.class);
       return monster;
     }
   }
 
-  public void delete() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM monster WHERE id = :id";
-      con.createQuery(sql)
-      .addParameter("id", id)
-      .executeUpdate();
-
-      String joinDelete = "DELETE FROM battle WHERE monster_id = :id";
-      con.createQuery(sql)
-      .addParameter("id", id)
-      .executeUpdate();
-    }
-  }
+  // public void delete() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "DELETE FROM monster WHERE id = :id";
+  //     con.createQuery(sql)
+  //     .addParameter("id", id)
+  //     .executeUpdate();
+  //
+  //     String joinDelete = "DELETE FROM battle WHERE monster_id = :id";
+  //     con.createQuery(sql)
+  //     .addParameter("id", id)
+  //     .executeUpdate();
+  //   }
+  // }
 
   public void update(String newName, int monsterId) {
     try(Connection con = DB.sql2o.open()) {
