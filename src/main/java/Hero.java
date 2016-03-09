@@ -11,7 +11,9 @@ public class Hero {
   private int attack;
   private int defense;
   private int speed;
-  private int stamina;
+  private Weapon weapon;
+  private Armor armor;
+  private Headgear headgear;
   private final static int MIN_STAMINA = 0;
   private final static int MIN_ATTACK = 0;
   private final static int MIN_DEFENSE = 0;
@@ -29,6 +31,132 @@ public class Hero {
     this.beardChoice = beardChoice;
     this.setExperience();
     this.setStats(beardChoice);
+  }
+
+  public void firstWeaponBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftWeapon = "UPDATE heroes SET speed = speed + 1, stamina = stamina + 4 WHERE id = :id";
+        con.createQuery(swiftWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardWeapon = "UPDATE heroes SET defense = defense + 1, stamina = stamina + 4 WHERE id = :id";
+        con.createQuery(hardWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongWeapon = "UPDATE heroes SET attack = attack + 1, stamina = stamina + 4 WHERE id = :id";
+        con.createQuery(strongWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+  }
+
+  public void lastWeaponBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftWeapon = "UPDATE heroes SET speed = speed + 2, stamina = stamina + 6, attack = attack + 1 WHERE id = :id";
+        con.createQuery(swiftWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardWeapon = "UPDATE heroes SET defense = defense + 2, stamina = stamina + 6, attack = attack + 1 WHERE id = :id";
+        con.createQuery(hardWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongWeapon = "UPDATE heroes SET attack = attack + 2, stamina = stamina + 6, speed = speed + 1 WHERE id = :id";
+        con.createQuery(strongWeapon)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+  }
+
+  public void firstHeadgearBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftHeadgear = "UPDATE heroes SET speed = speed + 1 WHERE id = :id";
+        con.createQuery(swiftHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardHeadgear = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+        con.createQuery(hardHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongHeadgear = "UPDATE heroes SET attack = attack + 1 WHERE id = :id";
+        con.createQuery(strongHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+  }
+
+  public void lastHeadgearBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftHeadgear = "UPDATE heroes SET speed = speed + 2, attack = attack + 1 WHERE id = :id";
+        con.createQuery(swiftHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardHeadgear = "UPDATE heroes SET defense = defense + 2, speed = speed + 1 WHERE id = :id";
+        con.createQuery(hardHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongHeadgear = "UPDATE heroes SET attack = attack + 2, speed = speed + 1 WHERE id = :id";
+        con.createQuery(strongHeadgear)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+  }
+
+  public void firstArmorBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftArmor = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+        con.createQuery(swiftArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardArmor = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+        con.createQuery(hardArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongArmor = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+        con.createQuery(strongArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+  }
+
+  public void firstArmorBonus() {
+    try(Connection con = DB.sql2o.open()) {
+      if (beardChoice == 1) {
+        String swiftArmor = "UPDATE heroes SET defense = defense + 3 WHERE id = :id";
+        con.createQuery(swiftArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else if (beardChoice == 2) {
+        String hardArmor = "UPDATE heroes SET defense = defense + 2 WHERE id = :id";
+        con.createQuery(hardArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      } else {
+        String strongArmor = "UPDATE heroes SET defense = defense + 3 WHERE id = :id";
+        con.createQuery(strongArmor)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
   }
 
   public int getId() {
@@ -128,7 +256,7 @@ public class Hero {
       String sql = "UPDATE heroes SET attack = attack + 1 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("id", id)
-      .executeUpdate(); 
+      .executeUpdate();
     }
   }
 
@@ -202,6 +330,7 @@ public class Hero {
     .addParameter("id", this.getId())
     .executeUpdate();
     }
+  }
 
   public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {

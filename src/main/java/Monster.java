@@ -59,11 +59,11 @@ public class Monster {
   public int setMonsterExperience() {
     if (monsterLevel == 1) {
       monsterExp = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-    } if else (monsterLevel == 2) {
+    } else if (monsterLevel == 2) {
         monsterExp = ThreadLocalRandom.current().nextInt(2, 4 + 1);
-    } if else (monsterLevel == 3 || monsterLevel == 4 || monsterLevel == 5) {
+    } else if (monsterLevel == 3 || monsterLevel == 4 || monsterLevel == 5) {
         monsterExp = ThreadLocalRandom.current().nextInt(3, 5 + 1);
-    } if else (monsterLevel == 6 || monsterLevel == 7 || monsterLevel == 8) {
+    } else if (monsterLevel == 6 || monsterLevel == 7 || monsterLevel == 8) {
         monsterExp = ThreadLocalRandom.current().nextInt(4, 6 + 1);
     } else {
         monsterExp = ThreadLocalRandom.current().nextInt(5, 7 + 1);
