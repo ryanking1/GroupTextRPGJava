@@ -131,6 +131,15 @@ public class Monster {
     }
   }
 
+  public static Monster findMonsterLevel() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT monster_level FROM monster WHERE id = :id";
+      Monster monster = con.createQuery(sql)
+      .addParameter("id", monsterId)
+      .executeAndFetchFirst(Monster.class);
+      return monster;
+  }
+
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "DELETE FROM monster WHERE id = :id";
