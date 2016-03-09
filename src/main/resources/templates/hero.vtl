@@ -13,19 +13,12 @@ hero.vtl
 </ul>
 
 
-<form action='/fightMonster' method='post'>
+<form action='/fight/$hero.getId()' method='post'>
   <label for="monster">Select a Monster</label>
-  <input id="heroId" name="heroId" type="hidden" value="$hero.getId()">
-  <select id='monster' name='monster' type='text'>
-    #foreach($monster in $monsters)
-      <option value="$monster.getId()"> $monster.getName() </option>
-    #end
+  <select id='monsterLevel' name='monsterLevel' type='text'>
+      <option name='monsterLevel' value="Christian Fundie:$hero.getMonsterLevel()"> Christian Fundie </option>
+      <option name='monsterLevel' value="Chad Bro:$hero.getMonsterLevel()"> Chad Bro </option>
+      <option name='monsterLevel'value="Feminazi Scum:$hero.getMonsterLevel()"> Feminazi Scum </option>
   </select>
   <button type='submit'>Fight</button>
-</form>
-
-<form action="/fightBoss" method="post">
-  <input id="heroId" name="heroId" type="hidden" value="$hero.getId()">
-  <label for="boss">Fight Boss?</label>
-  <button type="submit" class="btn btn-primary">Fight</button>
 </form>

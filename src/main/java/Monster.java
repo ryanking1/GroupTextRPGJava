@@ -5,6 +5,8 @@ import org.sql2o.*;
 
 public class Monster {
   private String monsterName;
+  private int monsterLevel;
+  private int monsterId;
   private int monsterDefense;
   private int monsterAttack;
   private int monsterSpeed;
@@ -12,7 +14,8 @@ public class Monster {
   private int monsterGold;
   private int monsterExp;
 
-  public Monster(int monsterLevel) {
+  public Monster(String monsterName, int monsterLevel) {
+    this.monsterName = monsterName;
     this.monsterLevel = monsterLevel;
     this.monsterId = monsterId;
     this.setStats();
@@ -111,6 +114,23 @@ public class Monster {
     }
   }
 
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO monster(monster_name, monster_defense, monster_attack, monster_gold, monster_speed, monster_stamina, monster_exp, monster_level) VALUES (:monsterName, :monsterDefense, :monsterAttack, :monsterGold, :monsterSpeed, :monsterStamina, :monsterExp, :monsterLevel)";
+      this.monsterId = (int) con.createQuery(sql, true)
+        .addParameter("monsterName", this.monsterName)
+        .addParameter("monsterDefense", this.monsterDefense)
+        .addParameter("monsterAttack", this.monsterAttack)
+        .addParameter("monsterGold", this.monsterGold)
+        .addParameter("monsterSpeed", this.monsterSpeed)
+        .addParameter("monsterStamina", this.monsterStamina)
+        .addParameter("monsterExp", this.monsterExp)
+        .addParameter("monsterLevel", this.monsterLevel)
+        .executeUpdate()
+        .getKey();
+    }
+  }
+
   public static List<Monster> all() {
     String sql = " SELECT * FROM monster ORDER BY name";
     try(Connection con = DB.sql2o.open()) {
@@ -120,7 +140,7 @@ public class Monster {
 
   public static Monster find(int monsterId) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM monster WHERE id = :id";
+      String sql = "SELECT id AS monsterId, monster_name AS monsterName, monster_defense AS monsterDefense, monster_attack AS monsterAttack, monster_gold AS monsterGold, monster_speed AS monsterSpeed, monster_stamina AS monsterStamina,  monster_exp AS monsterExp, monster_level AS monsterLevel FROM monster WHERE id = :id";
       Monster monster = con.createQuery(sql)
       .addParameter("id", monsterId)
       .executeAndFetchFirst(Monster.class);
@@ -128,27 +148,13 @@ public class Monster {
     }
   }
 
-  // public void delete() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "DELETE FROM monster WHERE id = :id";
-  //     con.createQuery(sql)
-  //     .addParameter("id", id)
-  //     .executeUpdate();
-  //
-  //     String joinDelete = "DELETE FROM battle WHERE monster_id = :id";
-  //     con.createQuery(sql)
-  //     .addParameter("id", id)
-  //     .executeUpdate();
-  //   }
-  // }
-
-  public void update(String newName) {
+  public static Monster findMonsterLevel(int monsterId) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE monster SET name = :newName WHERE id = :id";
-      con.createQuery(sql)
-      .addParameter("name", newName)
+      String sql = "SELECT monster_level FROM monster WHERE id = :id";
+      Monster monster = con.createQuery(sql)
       .addParameter("id", monsterId)
-      .executeUpdate();
+      .executeAndFetchFirst(Monster.class);
+      return monster;
     }
   }
 }

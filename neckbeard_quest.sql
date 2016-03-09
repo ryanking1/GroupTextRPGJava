@@ -185,7 +185,8 @@ CREATE TABLE monster (
     monster_gold integer,
     monster_speed integer,
     monster_stamina integer,
-    monster_exp integer
+    monster_exp integer,
+    monster_level integer
 );
 
 
@@ -364,6 +365,8 @@ SELECT pg_catalog.setval('battle_id_seq', 1, false);
 --
 
 COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, current_stamina) FROM stdin;
+19	1	Swifty	0	0	3	3	5	10	\N
+20	1	swifty	0	0	3	3	5	10	\N
 \.
 
 
@@ -371,7 +374,7 @@ COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, sta
 -- Name: hero_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hero_id_seq', 18, true);
+SELECT pg_catalog.setval('hero_id_seq', 20, true);
 
 
 --
@@ -393,7 +396,7 @@ SELECT pg_catalog.setval('inventory_id_seq', 1, false);
 -- Data for Name: monster; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, monster_speed, monster_stamina, monster_exp) FROM stdin;
+COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, monster_speed, monster_stamina, monster_exp, monster_level) FROM stdin;
 \.
 
 
