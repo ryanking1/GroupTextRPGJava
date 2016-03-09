@@ -1,2 +1,38 @@
 Intro:
-  One day, $neckbeard.getName() woke up with a grin plastered across his face, much like his smattering of acne. He buried his face into the long pillow next to him and kissed his waifu, Momo. He knew that today was a very special day. Even with all of the love for the inanimate pillow next to him, it did not match the tingles he felt for 
+  One day, $hero.getName() woke up with a grin plastered across his face, much like his smattering of acne. He buried his face into the long pillow next to him and kissed his waifu, Momo. He knew that today was a very special day. Even with all of the love for the inanimate pillow next to him, it did not match the tingles he felt for Twilight Sparkle. He knew it would not, nay, could not be the <i>real</i> Twilight Sparkle that he was going to meet today, but the actress that portrayed the angelic figure would have to be enough.
+
+  Euphoria turned to annoyance as he continued screeching out "Mom!" from his damp basement abode. What was holding her up this morning? She <i>knew</i> how important today was going to be for him. It seemed like he had been yelling for an hour when he finally heard the door open at the top of the stairs. The smell of hot chicken wafted down towards $hero.getName(), mingling with the smells of old socks and stale sweat that was the norm down here in the dungeon. <i>All right, Tendies,</i> he thought as he glared at the feeemale coming down the stairs. He berated her for her tardiness, smugly. Then, just to drive the point home, he demanded she go back up for his Mountain Dew that she'd neglected to bring.
+
+  $hero.getName() shoveled the Tendies into his gaping maw. Finally, it was time to make his way to the convention center. He grabbed his favorite Wicker Fedora, his Frayed Sleeveless Trenchcoat, and his Shuriken he had painstakingly glued together with Spicy Nack Doritoes, and set out.
+
+  $hero.getName() left his mother's house, beginning his quest to Whinny City Con. The trip was fraught with perils, and he ran into many rancid swine people on the way. He was forned to slay them with his razor sharp wit...and his Dorito Shuriken.
+
+Begin Fighting:
+
+  $hero.getName() found some loot after defeating $monster.getMonsterName(). He could feel himself getting stronger as he tried on his new garb.
+
+//SwiftBeard
+  #if(beardChoice == 1)
+    $hero.getName() found a pair of Gun-chucks, a Pinstripe Trilby, and a Suit Vest.
+//HardBeard
+  #elseif (beardChoice == 2)
+    $hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.
+//StrongBeard
+  #else
+    $hero.getName() found a pair of Fingerless Leather Gloves, and a Wool Fedora.
+
+//SwiftBeard
+  #if(beardChoice == 1)
+    $hero.getName() found a Replica Haruko's Bass From FLCL, Rainbow Dash's Winged Fedora, and a Vash Stampede from Trigun's Coat.
+//HardBeard
+  #elseif (beardChoice == 2)
+    $hero.getName() found a Replica Death Sythe from Soul Eater, a Satin Fedora, and Alvaro Garay from Want of Fortune's Sleeveless Battle Coat.
+//StrongBeard
+  #else
+    $hero.getName() found a Replica Ezra's Hammer from Fairy Tail, a Leather Fedora, and Akai Uchiha from Naruto: The Next Generation fanfic.
+
+Ending:
+
+After a long afternoon of unexpectedly picking battles, $hero.getName() finally walked up to the large double doors of the convention center. <i>Whinny City,</i> he thought. <i> Finally we meet. Finally I will be united with my love!</i>
+
+$hero.getName() traipsed into the convention space. He extracted his ticked from his permanently damp wallet and handed it to the maiden at the door. He impressed her with a tip of his fedora and soft, "M'laaady." But his true prize lay ahead...
