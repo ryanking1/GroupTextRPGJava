@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: armor; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE armor (
@@ -64,7 +64,7 @@ ALTER SEQUENCE armor_id_seq OWNED BY armor.id;
 
 
 --
--- Name: battle; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: battle; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE battle (
@@ -99,7 +99,7 @@ ALTER SEQUENCE battle_id_seq OWNED BY battle.id;
 
 
 --
--- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: hero; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE hero (
@@ -111,7 +111,8 @@ CREATE TABLE hero (
     attack integer,
     defense integer,
     speed integer,
-    stamina integer
+    stamina integer,
+    current_stamina integer
 );
 
 
@@ -139,7 +140,7 @@ ALTER SEQUENCE hero_id_seq OWNED BY hero.id;
 
 
 --
--- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: inventory; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE inventory (
@@ -173,7 +174,7 @@ ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
 
 
 --
--- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: monster; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE monster (
@@ -212,13 +213,13 @@ ALTER SEQUENCE monster_id_seq OWNED BY monster.id;
 
 
 --
--- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: player; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE player (
     id integer NOT NULL,
-    username character varying,
-    password character varying
+    password character varying,
+    user_name character varying
 );
 
 
@@ -246,7 +247,7 @@ ALTER SEQUENCE player_id_seq OWNED BY player.id;
 
 
 --
--- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+-- Name: weapon; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE weapon (
@@ -362,7 +363,7 @@ SELECT pg_catalog.setval('battle_id_seq', 1, false);
 -- Data for Name: hero; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina) FROM stdin;
+COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, current_stamina) FROM stdin;
 \.
 
 
@@ -370,7 +371,7 @@ COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, sta
 -- Name: hero_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hero_id_seq', 1, false);
+SELECT pg_catalog.setval('hero_id_seq', 18, true);
 
 
 --
@@ -407,7 +408,12 @@ SELECT pg_catalog.setval('monster_id_seq', 1, false);
 -- Data for Name: player; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY player (id, username, password) FROM stdin;
+COPY player (id, password, user_name) FROM stdin;
+1	pass1	\N
+2	pass2	\N
+3	pass3	\N
+4	pass4	\N
+5	pass4	user4
 \.
 
 
@@ -415,7 +421,7 @@ COPY player (id, username, password) FROM stdin;
 -- Name: player_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('player_id_seq', 1, false);
+SELECT pg_catalog.setval('player_id_seq', 5, true);
 
 
 --
@@ -434,7 +440,7 @@ SELECT pg_catalog.setval('weapon_id_seq', 1, false);
 
 
 --
--- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: armor_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY armor
@@ -442,7 +448,7 @@ ALTER TABLE ONLY armor
 
 
 --
--- Name: battle_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: battle_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY battle
@@ -450,7 +456,7 @@ ALTER TABLE ONLY battle
 
 
 --
--- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: hero_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY hero
@@ -458,7 +464,7 @@ ALTER TABLE ONLY hero
 
 
 --
--- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY inventory
@@ -466,7 +472,7 @@ ALTER TABLE ONLY inventory
 
 
 --
--- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: monster_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY monster
@@ -474,7 +480,7 @@ ALTER TABLE ONLY monster
 
 
 --
--- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: player_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY player
@@ -482,7 +488,7 @@ ALTER TABLE ONLY player
 
 
 --
--- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+-- Name: weapon_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY weapon
@@ -502,3 +508,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+

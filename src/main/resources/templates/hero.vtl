@@ -15,6 +15,7 @@ hero.vtl
 
 <form action='/fightMonster' method='post'>
   <label for="monster">Select a Monster</label>
+  <input id="heroId" name="heroId" type="hidden" value="$hero.getId()">
   <select id='monster' name='monster' type='text'>
     #foreach($monster in $monsters)
       <option value="$monster.getId()"> $monster.getName() </option>
@@ -24,6 +25,7 @@ hero.vtl
 </form>
 
 <form action="/fightBoss" method="post">
+  <input id="heroId" name="heroId" type="hidden" value="$hero.getId()">
   <label for="boss">Fight Boss?</label>
   <button type="submit" class="btn btn-primary">Fight</button>
 </form>

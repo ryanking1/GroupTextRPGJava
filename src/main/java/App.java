@@ -61,13 +61,25 @@ public class App {
     }, new VelocityTemplateEngine());
 
     post("/createHero", (request, response) -> {
-     int beardChoice = Integer.parseInt(request.queryParams("heroType"));
-     String name = request.queryParams("heroName");
-     Hero newHero = new Hero(name, beardChoice);
-     newHero.save();
-     int heroId = newHero.getId();
+       int beardChoice = Integer.parseInt(request.queryParams("heroType"));
+       String name = request.queryParams("heroName");
+       Hero newHero = new Hero(name, beardChoice);
+       newHero.save();
+       int heroId = newHero.getId();
+       response.redirect("/hero/" + heroId);
+       return null;
+     });
+
+     post("/fightBoss", (request, response) -> {
+      int heroId = Integer.parseInt(request.queryParams("heroId"));
+      response.redirect("/hero/" + heroId);
+      return null;
+    });
+
+    post("/fightMonster", (request, response) -> {
+     int heroId = Integer.parseInt(request.queryParams("heroId"));
      response.redirect("/hero/" + heroId);
      return null;
-   });
+     });
   }
 }
