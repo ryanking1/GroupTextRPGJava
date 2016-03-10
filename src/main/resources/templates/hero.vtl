@@ -7,10 +7,17 @@ hero.vtl
 <li>Attack: $hero.getAttack()</li>
 <li>Defense: $hero.getDefense()</li>
 <li>Stamina: $hero.getStamina()</li>
-<li>Experience: $hero.getExperience()</li>
-<li>Currency: $hero.getCurrency()</li>
-<li>Hero ID: $hero.getId()</li>
+<li>Euphoria: $hero.getExperience()</li>
+<li>Bit Coins: $hero.getCurrency()</li>
 </ul>
+
+
+#if ($hero.getTreasureOne() == true)
+<a href='/$hero.getId()/treasure1/$monster.getMonsterId()' type="btn btn-lg btn-warning">You found a treasure!</a>
+#end
+#if ($hero.getTreasureTwo() == true)
+<a href='/$hero.getId()/treasure2/$monster.getMonsterId()' type="btn btn-lg btn-warning">You found a treasure!</a>
+#end
 
 
 <form action='/fight/$hero.getId()' method='post'>

@@ -201,6 +201,13 @@ public class Hero {
     return level;
   }
 
+  public boolean getTreasureOne() {
+    return treasure_one;
+  }
+  public boolean getTreasureTwo() {
+    return treasure_two;
+  }
+
   public int getBeardChoice() {
     return beardChoice;
   }
@@ -384,6 +391,42 @@ public class Hero {
       .executeUpdate();
     }
   }
+
+  public void updateTreasureOneTrue() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_one = true WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+  public void updateTreasureOneFalse() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_one = false WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+  public void updateTreasureTwoTrue() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_two = true WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+    public void updateTreasureTwoFalse() {
+        try(Connection con = DB.sql2o.open()) {
+          String sql = "UPDATE hero SET treasure_two = false WHERE id = :id";
+          con.createQuery(sql)
+          .addParameter("id", id)
+          .executeUpdate();
+        }
+      }
 
   public void updateStamina(int newHeroStamina) {
     try(Connection con = DB.sql2o.open()) {

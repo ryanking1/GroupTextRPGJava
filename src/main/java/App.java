@@ -10,7 +10,7 @@ public class App {
     String layout = "templates/layout.vtl";
     staticFileLocation("/public");
 
-    /*          
+    /*
     before loading the /index endpoint, check to see if there is an account object
     saved in session memory. If there is, proceed to /index. If there is NOT, halt
     the request with a 401 error, and display message "You are not welcome here"
@@ -25,7 +25,7 @@ public class App {
       Player player = request.session().attribute("player");
       if (player instanceof Player){
         authenticated = true;
-      } 
+      }
       if (!authenticated) {
           halt(401, "You are not welcome here");
       }
@@ -157,6 +157,7 @@ public class App {
       hero.firstWeaponBonus();
       hero.firstHeadgearBonus();
       hero.firstArmorBonus();
+      hero.updateTreasureOneFalse();
       model.put("hero", hero);
       model.put("monster", monster);
       model.put("template", "templates/treasure1.vtl");
@@ -182,6 +183,12 @@ public class App {
       Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
       int id = hero.getId();
       hero.levelUpSpeed();
+      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
+        hero.updateTreasureOneTrue();
+      }
+      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
+        hero.updateTreasureTwoTrue();
+      }
       response.redirect("/hero/" + id)
     )};
 
@@ -190,14 +197,40 @@ public class App {
       Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
       int id = hero.getId();
       hero.levelUpAttack();
+      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
+        hero.updateTreasureOneTrue();
+      }
+      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
+        hero.updateTreasureTwoTrue();
+      }
       response.redirect("/hero/" + id)
     )};
 
     //Defense Level Up
-    post("/hero/:id/levelAttack", (request, response) -> {
+    post("/hero/:id/levelDefense", (request, response) -> {
       Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
       int id = hero.getId();
       hero.levelUpDefense();
+      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
+        hero.updateTreasureOneTrue();
+      }
+      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
+        hero.updateTreasureTwoTrue();
+      }
+      response.redirect("/hero/" + id)
+    )};
+
+    //Defense Level Up
+    post("/hero/:id/levelStamina", (request, response) -> {
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      int id = hero.getId();
+      hero.levelUpStamina();
+      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
+        hero.updateTreasureOneTrue();
+      }
+      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
+        hero.updateTreasureTwoTrue();
+      }
       response.redirect("/hero/" + id)
     )};
 
