@@ -1,0 +1,30 @@
+<div class="container treasure1">
+  <!-- //SwiftBeard -->
+    #if(beardChoice == 1)
+      $hero.getName() found a pair of Gun-chucks, a Pinstripe Trilby, and a Suit Vest.
+  <!-- //HardBeard -->
+    #elseif (beardChoice == 2)
+      $hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.
+  <!-- //StrongBeard -->
+    #else
+      $hero.getName() found a pair of Fingerless Leather Gloves, and a Felt Wool Bowler.
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="image">
+      #if(beardChoice == 1)
+        <img src="/images/pinstripe-trilby.jpg" alt="Pinstripe Trilby" />
+      #elseif (beardChoice == 2)
+        <img src="/images/checked-trilby.jpg" alt="Black and White Checked Trilby" />
+      #else
+        <img src="/images/wool-bowler.jpg" alt="Felt Wool Bowler" />
+    </div>
+  </div>
+  <div class="col-sm-4">
+
+  </div>
+  <div class="col-sm-4">
+
+  </div>
+
+</div>

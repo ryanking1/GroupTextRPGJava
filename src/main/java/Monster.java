@@ -139,6 +139,7 @@ public class Monster {
       .executeAndFetchFirst(Monster.class);
       return monster;
   }
+}
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
