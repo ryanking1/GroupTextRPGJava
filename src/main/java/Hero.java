@@ -15,7 +15,7 @@ public class Hero {
   private int defense;
   private int speed;
   private int stamina;
-  private int trasure_one;
+  private int treasure_one;
   private int treasure_two;
   private final static int MIN_STAMINA = 0;
   private final static int MIN_ATTACK = 0;
@@ -290,6 +290,13 @@ public class Hero {
     return isAlive;
   }
 
+ public boolean getTreasureOne() {
+   return treasure_one;
+ }
+ public boolean getTreasureTwo() {
+   return treasure_two;
+ }
+
   public int getMonsterLevel(){
     this.attack = attack;
     this.defense = defense;
@@ -394,6 +401,43 @@ public class Hero {
       .executeUpdate();
     }
   }
+
+
+  public void updateTreasureOneTrue() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_one = true WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+  public void updateTreasureOneFalse() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_one = false WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+  public void updateTreasureTwoTrue() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "UPDATE hero SET treasure_two = true WHERE id = :id";
+        con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+      }
+    }
+
+    public void updateTreasureTwoFalse() {
+        try(Connection con = DB.sql2o.open()) {
+          String sql = "UPDATE hero SET treasure_two = false WHERE id = :id";
+          con.createQuery(sql)
+          .addParameter("id", id)
+          .executeUpdate();
+        }
+      }
 
   public void updateStamina(int newHeroStamina) {
     try(Connection con = DB.sql2o.open()) {
