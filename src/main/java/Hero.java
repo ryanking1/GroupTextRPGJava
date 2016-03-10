@@ -15,6 +15,8 @@ public class Hero {
   private int defense;
   private int speed;
   private int stamina;
+  private int trasure_one;
+  private int treasure_two;
   private final static int MIN_STAMINA = 0;
   private final static int MIN_ATTACK = 0;
   private final static int MIN_DEFENSE = 0;
@@ -335,7 +337,7 @@ public class Hero {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina, :level, :exp_to_next_level)";
+      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level, treasure_one, treasure_two) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina, :level, :exp_to_next_level, :treasure_one, :treasure_two)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("beardChoice", this.beardChoice)
         .addParameter("name", this.name)
@@ -347,6 +349,8 @@ public class Hero {
         .addParameter("stamina", this.stamina)
         .addParameter("level", this.level)
         .addParameter("exp_to_next_level", this.exp_to_next_level)
+        .addParameter("treasure_one", false)
+        .addParameter("treasure_two", false)
         .executeUpdate()
         .getKey();
     }

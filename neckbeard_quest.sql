@@ -113,7 +113,9 @@ CREATE TABLE hero (
     speed integer,
     stamina integer,
     level integer,
-    exp_to_next_level integer
+    exp_to_next_level integer,
+    treasure_one boolean,
+    treasure_two boolean
 );
 
 
@@ -405,25 +407,27 @@ SELECT pg_catalog.setval('battle_id_seq', 1, false);
 -- Data for Name: hero; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level) FROM stdin;
-56	1	dfdffd	0	0	4	4	6	10	\N	\N
-57	1	sdfsf	0	0	4	4	6	6	\N	\N
-58	1	asdasd	5	8	4	4	6	10	\N	\N
-59	1	hjkhk	0	0	4	4	6	10	\N	\N
-60	1	sadf	0	0	4	4	6	10	\N	\N
-61	1	asdasd	0	0	4	4	6	10	1	\N
-62	1	sdf	0	0	4	4	6	10	1	0
-63	1	adf	0	0	4	4	6	10	1	0
-64	1	asdas	0	0	4	4	6	10	1	0
-65	1	asd	3	6	4	4	6	10	1	0
-69	1	asdasd	13	21	4	4	6	10	1	9
-66	1	sdasd	4	10	4	4	6	10	1	0
-70	1	asdasd	0	0	4	4	6	-6	1	0
-71	1	asdasd	41	88	4	4	6	-6	1	13
-67	1	asdasd	8	14	4	4	6	10	1	3
-68	1	asdasd	8	11	4	4	6	10	1	3
-72	1	asdasd	23	45	4	4	6	-6	1	30
-55	1	sdfsdf	17	42	4	4	6	-6	\N	\N
+COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level, treasure_one, treasure_two) FROM stdin;
+56	1	dfdffd	0	0	4	4	6	10	\N	\N	\N	\N
+57	1	sdfsf	0	0	4	4	6	6	\N	\N	\N	\N
+58	1	asdasd	5	8	4	4	6	10	\N	\N	\N	\N
+59	1	hjkhk	0	0	4	4	6	10	\N	\N	\N	\N
+60	1	sadf	0	0	4	4	6	10	\N	\N	\N	\N
+61	1	asdasd	0	0	4	4	6	10	1	\N	\N	\N
+62	1	sdf	0	0	4	4	6	10	1	0	\N	\N
+63	1	adf	0	0	4	4	6	10	1	0	\N	\N
+64	1	asdas	0	0	4	4	6	10	1	0	\N	\N
+65	1	asd	3	6	4	4	6	10	1	0	\N	\N
+69	1	asdasd	13	21	4	4	6	10	1	9	\N	\N
+66	1	sdasd	4	10	4	4	6	10	1	0	\N	\N
+70	1	asdasd	0	0	4	4	6	-6	1	0	\N	\N
+71	1	asdasd	41	88	4	4	6	-6	1	13	\N	\N
+67	1	asdasd	8	14	4	4	6	10	1	3	\N	\N
+74	1	asdasd	33	72	4	4	6	10	1	-8	\N	\N
+73	1	afdads	14	32	4	4	6	-14	1	9	\N	\N
+68	1	asdasd	8	11	4	4	6	10	1	3	\N	\N
+72	1	asdasd	23	45	4	4	6	-6	1	30	\N	\N
+55	1	sdfsdf	17	42	4	4	6	-6	\N	\N	\N	\N
 \.
 
 
@@ -431,7 +435,7 @@ COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, sta
 -- Name: hero_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hero_id_seq', 72, true);
+SELECT pg_catalog.setval('hero_id_seq', 74, true);
 
 
 --
@@ -580,6 +584,20 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 96	Christian Fundie	4	4	11	4	-4	4	4
 97	Christian Fundie	4	4	8	4	-8	3	4
 98	Christian Fundie	4	4	6	4	4	3	4
+99	Christian Fundie	4	4	6	4	-8	3	4
+100	Christian Fundie	4	4	7	4	-8	4	4
+101	Christian Fundie	4	4	11	4	-8	4	4
+102	Christian Fundie	4	4	8	4	-8	3	4
+103	Christian Fundie	4	4	9	4	4	4	4
+104	Christian Fundie	4	4	9	4	-8	3	4
+105	Christian Fundie	4	4	6	4	-12	3	4
+106	Christian Fundie	4	4	7	4	-4	5	4
+107	Christian Fundie	4	4	9	4	0	4	4
+108	Christian Fundie	4	4	7	4	-8	4	4
+109	Christian Fundie	4	4	10	4	-4	3	4
+110	Christian Fundie	4	4	9	4	0	3	4
+111	Christian Fundie	4	4	5	4	0	3	4
+112	Christian Fundie	4	4	10	4	-8	5	4
 \.
 
 
@@ -587,7 +605,7 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 -- Name: monster_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('monster_id_seq', 98, true);
+SELECT pg_catalog.setval('monster_id_seq', 112, true);
 
 
 --
