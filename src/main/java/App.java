@@ -145,6 +145,7 @@ public class App {
       hero.updateStamina(newHeroStamina);
       monster.updateMonsterStamina(newMonsterStamina);
       }
+
       model.put("maxStamina", maxStamina);
       model.put("hero", hero);
       model.put("monster", monster);
@@ -204,6 +205,7 @@ public class App {
       int monsterId = Integer.parseInt(request.params(":monsterId"));
       Hero hero = Hero.find(heroId);
       Monster monster = Monster.find(monsterId);
+
       model.put("hero", hero);
       model.put("monster", monster);
       model.put("template", "templates/in-fight.vtl");
@@ -224,6 +226,13 @@ public class App {
       hero.updateStamina(maxStamina);
       hero.updateGold(gold);
       hero.updateExp(experience);
+
+      int nextLevel = hero.getLevel() + 1;
+      int experienceToNextLevel = hero.getNextLevelExp(nextLevel) - hero.getExperience();
+
+      hero.updateExpToNextLevel(experienceToNextLevel);
+
+      model.put("experienceToNextLevel", experienceToNextLevel);
       model.put("maxStamina", maxStamina);
       model.put("hero", hero);
       model.put("monster", monster);
