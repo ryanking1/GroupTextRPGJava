@@ -44,7 +44,7 @@ public class Battle {
     }
   }
 
-  public boolean powerSpeedCheck() {
+  public boolean heavySpeedCheck() {
     if (heroSpeed * (0.8) >= monsterSpeed) {
       return true;
     } else {

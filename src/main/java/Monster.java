@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 import org.sql2o.*;
 
 public class Monster {
@@ -24,22 +25,22 @@ public class Monster {
   }
 
   public void setStats() {
-    if (monsterLevel >= 1 && monsterLevel <=2) {
+    if (monsterLevel <=5) {
       monsterAttack = 4;
       monsterDefense = 4;
       monsterSpeed = 4;
       monsterStamina = 8;
-    } else if (monsterLevel >=3 && monsterLevel <=4) {
+    } else if (monsterLevel >=6 && monsterLevel <=8) {
       monsterAttack = 6;
       monsterDefense = 6;
       monsterSpeed = 6;
       monsterStamina = 12;
-    } else if (monsterLevel >=5 && monsterLevel <=6) {
+    } else if (monsterLevel >=9 && monsterLevel <=11) {
       monsterAttack = 8;
       monsterDefense = 8;
       monsterSpeed = 8;
       monsterStamina = 16;
-    } else if (monsterLevel >=7 && monsterLevel <=8) {
+    } else if (monsterLevel >=12 && monsterLevel <=15) {
       monsterAttack = 10;
       monsterDefense = 10;
       monsterSpeed = 10;
@@ -104,6 +105,18 @@ public class Monster {
       return monsterLevel;
   }
 
+  public int monsterAttack(int monsterAttack, int heroDefense) {
+    int random = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+    int damage = (monsterAttack * (random)) - heroDefense;
+
+    if(damage > 0){
+      return damage;
+    } else {
+    damage = 0;
+    }
+    return damage;
+  }
+
   @Override
   public boolean equals(Object otherMonster){
     if (!(otherMonster instanceof Monster)) {
@@ -138,6 +151,16 @@ public class Monster {
     }
   }
 
+  public void updateMonsterStamina(int newMonsterStamina) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE monster SET monster_stamina = :newMonsterStamina WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("newMonsterStamina", newMonsterStamina)
+      .addParameter("id", monsterId)
+      .executeUpdate();
+    }
+  }
+
   public static Monster find(int monsterId) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT id AS monsterId, monster_name AS monsterName, monster_defense AS monsterDefense, monster_attack AS monsterAttack, monster_gold AS monsterGold, monster_speed AS monsterSpeed, monster_stamina AS monsterStamina,  monster_exp AS monsterExp, monster_level AS monsterLevel FROM monster WHERE id = :id";
@@ -147,6 +170,16 @@ public class Monster {
       return monster;
     }
   }
+
+  public Boolean isAlive() {
+    int stamina = getMonsterStamina();
+    boolean isAlive = true;
+    if (stamina < 1) {
+      isAlive = false;
+    }
+    return isAlive;
+  }
+
 
   public static Monster findMonsterLevel(int monsterId) {
     try(Connection con = DB.sql2o.open()) {

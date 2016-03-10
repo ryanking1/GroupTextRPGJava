@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import org.sql2o.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Hero {
   private int id;
@@ -29,6 +30,38 @@ public class Hero {
     this.beardChoice = beardChoice;
     this.setExperience();
     this.setStats(beardChoice);
+  }
+
+  public boolean regSpeedCheck(int heroSpeed, int monsterSpeed) {
+    if (heroSpeed >= monsterSpeed) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public int regAttack(int heroAttack, int monsterDefense) {
+    int random = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+    int damage = ((heroAttack * (random)) - monsterDefense);
+
+    if(damage > 0){
+      return damage;
+    } else {
+    damage = 0;
+    }
+    return damage;
+  }
+
+  public int heavyAttack(int heroAttack, int monsterDefense) {
+    int random = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+    int damage = (int)(((heroAttack * (random)) - monsterDefense) * 1.5);
+
+    if(damage > 0){
+      return (int)damage;
+    } else {
+    damage = 0;
+    }
+    return (int)damage;
   }
 
   public void firstWeaponBonus() {
@@ -220,19 +253,19 @@ public class Hero {
 
   public void setStats(int beardChoice) {
     if (beardChoice == 1) {
-      this.speed = 5;
-      this.defense = 3;
-      this.attack = 3;
+      this.speed = 6;
+      this.defense = 4;
+      this.attack = 4;
       this.stamina = 10;
     } else if (beardChoice == 2) {
-      this.speed = 3;
-      this.defense = 5;
-      this.attack = 3;
+      this.speed = 4;
+      this.defense = 6;
+      this.attack = 4;
       this.stamina = 10;
     } else {
-      this.speed = 3;
-      this.defense = 3;
-      this.attack = 5;
+      this.speed = 4;
+      this.defense = 4;
+      this.attack = 6;
       this.stamina = 10;
     }
   }
@@ -342,6 +375,16 @@ public class Hero {
       String sql = "UPDATE hero SET name = :newName WHERE id = :id";
       con.createQuery(sql)
       .addParameter("name", newName)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void updateStamina(int newHeroStamina) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET stamina = :newHeroStamina WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("newHeroStamina", newHeroStamina)
       .addParameter("id", id)
       .executeUpdate();
     }
