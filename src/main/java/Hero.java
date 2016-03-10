@@ -460,7 +460,7 @@ public class Hero {
 
   public void updateLevel(int level) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE hero SET level = :level WHERE id = :id";
+      String sql = "UPDATE hero SET level = :level, experience = 0 WHERE id = :id";
       con.createQuery(sql)
       .addParameter("level", level)
       .addParameter("id", id)
