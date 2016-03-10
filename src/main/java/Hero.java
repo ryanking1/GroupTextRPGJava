@@ -15,8 +15,8 @@ public class Hero {
   private int defense;
   private int speed;
   private int stamina;
-  private int treasure_one;
-  private int treasure_two;
+  private boolean treasure_one;
+  private boolean treasure_two;
   private final static int MIN_STAMINA = 0;
   private final static int MIN_ATTACK = 0;
   private final static int MIN_DEFENSE = 0;

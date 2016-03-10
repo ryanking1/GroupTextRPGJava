@@ -1,11 +1,43 @@
+
 battle-win
 
-Exp to Next Level: $experienceToNextLevel
+<div class="container battleWin">
+<p>Congratulations on beating $monster.getMonsterName()!</p>
+<br>
+<p>$hero.getName() you have earned $monster.getMonsterExp() experience, and $monster.getMonsterGold() Gold!</p>
+</div>
 
-Congratulations on beating $monster.getMonsterName()!
-<br>
-$hero.getName() you have earned $monster.getMonsterExp() experience, and $monster.getMonsterGold() Gold!
-<br>
-<form action='/battleAgain/$hero.getId()' method='post'>
-  <button type="submit">Return to Battle</button>
+#if ($hero.getExperience() == 0)
+<div style="width:600px;">
+  <div style="float: left; width: 130px">
+    <div class="container levelButton">
+      <form action='/hero/$hero.getId()/levelSpeed' method='post'>
+        <button type="submit">Improve your Speed</button>
+      </form>
+    </div>
+  <div style="width: 130px">
+    <form action='/hero/$hero.getId()/levelAttack' method='post'>
+      <button type="submit"  class="btn btn-default">Improve your Strength</button>
+    </form>
+  </div>
+  <div style="float: right; width: 225px">
+    <form action='/hero/$hero.getId()/levelDefense' method='post'>
+      <button type="submit" class="btn btn-default">Improve your Defense</button>
+    </form>
+  </div>
+  </div>
+</div>
+#else
+<div class="container fightButton">
+<form action='/hero/$hero.getId()' method='get'>
+  <button type="submit">Return to the Action</button>
 </form>
+</div>
+#end
+
+#if ($hero.getTreasureOne() == true)
+<a href='/$hero.getId()/treasure1/$monster.getMonsterId()' type="btn btn-lg btn-warning">You found a treasure!</a>
+#end
+#if ($hero.getTreasureTwo() == true)
+<a href='/$hero.getId()/treasure2/$monster.getMonsterId()' type="btn btn-lg btn-warning">You found a treasure!</a>
+#end
