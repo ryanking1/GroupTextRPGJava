@@ -112,7 +112,8 @@ CREATE TABLE hero (
     defense integer,
     speed integer,
     stamina integer,
-    current_stamina integer
+    level integer,
+    exp_to_next_level integer
 );
 
 
@@ -171,6 +172,39 @@ ALTER TABLE inventory_id_seq OWNER TO "Guest";
 --
 
 ALTER SEQUENCE inventory_id_seq OWNED BY inventory.id;
+
+
+--
+-- Name: level; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE level (
+    id integer NOT NULL,
+    experience integer
+);
+
+
+ALTER TABLE level OWNER TO "Guest";
+
+--
+-- Name: level_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE level_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE level_id_seq OWNER TO "Guest";
+
+--
+-- Name: level_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE level_id_seq OWNED BY level.id;
 
 
 --
@@ -313,6 +347,13 @@ ALTER TABLE ONLY inventory ALTER COLUMN id SET DEFAULT nextval('inventory_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
+ALTER TABLE ONLY level ALTER COLUMN id SET DEFAULT nextval('level_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
 ALTER TABLE ONLY monster ALTER COLUMN id SET DEFAULT nextval('monster_id_seq'::regclass);
 
 
@@ -364,9 +405,7 @@ SELECT pg_catalog.setval('battle_id_seq', 1, false);
 -- Data for Name: hero; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, current_stamina) FROM stdin;
-19	1	Swifty	0	0	3	3	5	10	\N
-20	1	swifty	0	0	3	3	5	10	\N
+COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level) FROM stdin;
 \.
 
 
@@ -374,7 +413,7 @@ COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, sta
 -- Name: hero_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hero_id_seq', 20, true);
+SELECT pg_catalog.setval('hero_id_seq', 54, true);
 
 
 --
@@ -393,10 +432,79 @@ SELECT pg_catalog.setval('inventory_id_seq', 1, false);
 
 
 --
+-- Data for Name: level; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY level (id, experience) FROM stdin;
+\.
+
+
+--
+-- Name: level_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('level_id_seq', 1, false);
+
+
+--
 -- Data for Name: monster; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, monster_speed, monster_stamina, monster_exp, monster_level) FROM stdin;
+3	Chad Bro	6	6	7	6	12	4	3
+4	Chad Bro	6	6	8	6	12	4	3
+5	Feminazi Scum	6	6	7	6	12	4	3
+6	Christian Fundie	6	6	7	6	12	3	3
+7	Feminazi Scum	6	6	5	6	12	3	3
+8	Feminazi Scum	6	6	10	6	12	5	3
+9	Christian Fundie	6	6	8	6	12	3	3
+10	Chad Bro	6	6	10	6	12	3	3
+11	Chad Bro	6	6	9	6	12	5	3
+12	Christian Fundie	6	6	11	6	12	3	3
+13	Christian Fundie	6	6	9	6	12	3	3
+14	Christian Fundie	6	6	6	6	12	4	3
+15	Christian Fundie	6	6	11	6	12	4	3
+34	Christian Fundie	4	4	10	4	-8	5	4
+35	Chad Bro	4	4	10	4	0	3	4
+36	Christian Fundie	4	4	9	4	0	4	4
+37	Chad Bro	4	4	7	4	0	4	4
+22	Christian Fundie	6	6	6	6	-16	3	4
+23	Christian Fundie	6	6	8	6	12	4	4
+24	Feminazi Scum	6	6	7	6	12	4	4
+25	Chad Bro	6	6	8	6	12	4	4
+38	Christian Fundie	4	4	8	4	4	4	4
+17	Christian Fundie	6	6	6	6	-2	3	4
+49	Christian Fundie	4	4	7	4	-8	4	4
+39	Christian Fundie	4	4	8	4	-4	3	4
+40	Chad Bro	4	4	5	4	0	4	4
+50	Christian Fundie	4	4	7	4	0	4	4
+41	Christian Fundie	4	4	9	4	-12	5	4
+19	Christian Fundie	6	6	6	6	-56	4	5
+42	Christian Fundie	4	4	5	4	-8	4	4
+43	Christian Fundie	4	4	9	4	-8	3	4
+51	Christian Fundie	4	4	11	4	4	4	4
+26	Christian Fundie	4	4	8	4	-142	4	4
+20	Christian Fundie	6	6	7	6	-2	3	4
+27	Christian Fundie	4	4	7	4	4	5	4
+28	Chad Bro	4	4	10	4	8	3	4
+44	Christian Fundie	4	4	6	4	-4	4	4
+29	Christian Fundie	4	4	10	4	-4	3	4
+52	Christian Fundie	4	4	10	4	-8	4	4
+30	Christian Fundie	4	4	5	4	-4	3	4
+31	Christian Fundie	4	4	5	4	-4	5	4
+18	Christian Fundie	6	6	10	6	-38	5	4
+21	Christian Fundie	6	6	6	6	-12	5	4
+16	Christian Fundie	6	6	11	6	12	3	3
+45	Christian Fundie	4	4	7	4	-4	5	4
+46	Chad Bro	4	4	5	4	-4	3	4
+32	Chad Bro	4	4	8	4	-8	4	4
+33	Christian Fundie	4	4	5	4	0	5	4
+53	Feminazi Scum	4	4	8	4	-4	5	4
+47	Christian Fundie	4	4	11	4	-8	5	4
+54	Christian Fundie	4	4	6	4	0	4	4
+48	Christian Fundie	4	4	6	4	-8	4	4
+55	Christian Fundie	4	4	5	4	-4	5	4
+56	Christian Fundie	4	4	8	4	4	4	4
 \.
 
 
@@ -404,7 +512,7 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 -- Name: monster_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('monster_id_seq', 1, false);
+SELECT pg_catalog.setval('monster_id_seq', 56, true);
 
 
 --
@@ -417,6 +525,7 @@ COPY player (id, password, user_name) FROM stdin;
 3	pass3	\N
 4	pass4	\N
 5	pass4	user4
+6	123	bob
 \.
 
 
@@ -424,7 +533,7 @@ COPY player (id, password, user_name) FROM stdin;
 -- Name: player_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('player_id_seq', 5, true);
+SELECT pg_catalog.setval('player_id_seq', 6, true);
 
 
 --
@@ -472,6 +581,14 @@ ALTER TABLE ONLY hero
 
 ALTER TABLE ONLY inventory
     ADD CONSTRAINT inventory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: level_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY level
+    ADD CONSTRAINT level_pkey PRIMARY KEY (id);
 
 
 --
