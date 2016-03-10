@@ -1,12 +1,10 @@
 in-fight.vtl
-<div class="container float-right">
+<div class="container fightStats">
 <ul>
+<li><strong>Stamina: $hero.getStamina()</strong></li>
 <li>Speed: $hero.getSpeed()</li>
 <li>Attack: $hero.getAttack()</li>
 <li>Defense: $hero.getDefense()</li>
-<li>Stamina: $hero.getStamina()</li>
-<li>Experience: $hero.getExperience()</li>
-<li>Currency: $hero.getCurrency()</li>
 </ul>
 
 <ul>
@@ -16,8 +14,11 @@ in-fight.vtl
 <li>Stamina: $monster.getMonsterStamina()</li>
 </ul>
 </div>
+<br>
+<br>
+<br>
 
-<div class="container">
+<div class="container fightInfo">
 You are fighting $monster.getMonsterName()!
 
 <form action="/regularAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
@@ -37,9 +38,11 @@ The $monster.getMonsterName() has attacked $hero.getName() for $monsterDamage!
 <br>
 <br>
 $monster.getMonsterName() has $monster.getMonsterStamina() left...
-</div>
+<br>
+<br>
 
 MaxStamina is: $maxStamina
+</div>
 
 #if ($monster.isAlive() == false)
 <form action="/monsterDefeat/$hero.getId()/monster/$monster.getMonsterId()" method="post">

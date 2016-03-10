@@ -1,12 +1,21 @@
 form {
   display: inline;
 }
-.intro1 .intro2 .intro3 {
-  font-size: 22px;
+body {
+  padding-top: 40px;
+  font-size: 20px;
+
+}
+
+.fightInfo {
+  font-size: 18px;
+}
+
+.fightStats {
+  float: right;
 }
 
 .intro1 {
-
 }
 
 .intro2 {
@@ -45,10 +54,12 @@ form {
   margin-top: 25px;
   color: #FF0000;
   background-color: black;
+  padding: 10px 15px 10px 15px;
 }
 
 .storyButton {
   margin-top: 25px;
   color: #FF0000;
   background-color: black;
+  padding: 10px 15px 10px 15px;
 }

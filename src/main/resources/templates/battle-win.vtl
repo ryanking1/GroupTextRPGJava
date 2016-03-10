@@ -4,38 +4,32 @@ battle-win
 <p>Congratulations on beating $monster.getMonsterName()!</p>
 <br>
 <p>$hero.getName() you have earned $monster.getMonsterExp() experience, and $monster.getMonsterGold() Gold!</p>
-</div>
+
 
 #if ($hero.getExperience() == 0)
 <h5>You feel even more strength rushing through your heaving veins!</h5>
-<div style="width:800px;">
-  <div style="float: left; width: 200px">
-    <div class="container levelButton">
-      <form action='/hero/$hero.getId()/levelSpeed' method='post'>
-        <button type="submit">Improve your Speed</button>
-      </form>
-    </div>
-  <div style="width: 200px">
-    <form action='/hero/$hero.getId()/levelAttack' method='post'>
-      <button type="submit"  class="btn btn-default">Improve your Strength</button>
-    </form>
-  </div>
-  <div style="width: 200px">
-    <form action='/hero/$hero.getId()/levelDefense' method='post'>
-      <button type="submit"  class="btn btn-default">Improve your Defense</button>
-    </form>
-  </div>
-  <div style="float: right; width: 225px">
-    <form action='/hero/$hero.getId()/levelStamina' method='post'>
-      <button type="submit" class="btn btn-default">Improve your Stamina</button>
-    </form>
-  </div>
-  </div>
 </div>
+
+    <div class="container">
+      <form action='/hero/$hero.getId()/levelSpeed' method='post'>
+        <button type="submit" class="btn btn-default">Improve your Speed</button>
+      </form>
+      <form action='/hero/$hero.getId()/levelAttack' method='post'>
+        <button type="submit"  class="btn btn-default">Improve your Strength</button>
+      </form>
+      <form action='/hero/$hero.getId()/levelDefense' method='post'>
+        <button type="submit"  class="btn btn-default">Improve your Defense</button>
+      </form>
+      <form action='/hero/$hero.getId()/levelStamina' method='post'>
+        <button type="submit" class="btn btn-default">Improve your Stamina</button>
+      </form>
+  </div>
+
+#else
 #end
 
-<div class="container fightButton">
-<form action='/hero/$hero.getId()' method='post'>
-  <button type="submit">Return to the Action</button>
+<div class="container">
+<form action='/hero/$hero.getId()' method='get'>
+  <button type="submit" class="fightButton">Return to the Action</button>
 </form>
 </div>
