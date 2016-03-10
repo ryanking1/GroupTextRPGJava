@@ -390,6 +390,26 @@ public class Hero {
     }
   }
 
+  public void updateGold(int gold) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET gold = :gold WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("gold", gold)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void updateExp(int experience) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET experience = :experience WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("experience", experience)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
   public static Hero find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina FROM hero WHERE id = :id";

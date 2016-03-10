@@ -27,6 +27,15 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //redirects back to monster selection after winning a battle and clicking
+    //return to battle button
+    post("/battleAgain/:heroId", (request, response) -> {
+       int heroId = Integer.parseInt(request.params(":heroId"));
+       Hero hero = Hero.find(heroId);
+       response.redirect("/hero/" + heroId);
+       return null;
+     });
+
     //fight instantiation page
     get("/fight/:id", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
@@ -110,6 +119,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //Post for fight round with reg attack
    post("/regularAttack/:heroId/monster/:monsterId", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
     int maxStamina = request.session().attribute("maxStamina");
@@ -144,6 +154,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //post for fight round with heavy attack
     post("/heavyAttack/:heroId/monster/:monsterId", (request, response) -> {
      HashMap<String, Object> model = new HashMap<String, Object>();
      int maxStamina = request.session().attribute("maxStamina");
@@ -186,6 +197,7 @@ public class App {
        return new ModelAndView(model, layout);
      }, new VelocityTemplateEngine());
 
+     //get route for in-fight page(displays during fight rounds)
     get("/fight/:heroId/monster/:monsterId", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       int heroId = Integer.parseInt(request.params(":heroId"));
@@ -198,6 +210,8 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //post for defeating a monster, which updates hp, exp, and gold for the hero
+    //is run when user clicks the battle is over you win button
     post("/monsterDefeat/:heroId/monster/:monsterId", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       int heroId = Integer.parseInt(request.params(":heroId"));
@@ -205,6 +219,11 @@ public class App {
       Hero hero = Hero.find(heroId);
       Monster monster = Monster.find(monsterId);
       int maxStamina = request.session().attribute("maxStamina");
+      int gold = (monster.getMonsterGold() + hero.getCurrency());
+      int experience = (monster.getMonsterExp() + hero.getExperience());
+      hero.updateStamina(maxStamina);
+      hero.updateGold(gold);
+      hero.updateExp(experience);
       model.put("maxStamina", maxStamina);
       model.put("hero", hero);
       model.put("monster", monster);
@@ -212,6 +231,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //goes to battle loss page after user clicks battle is over you lost button
     post("/heroDefeat/:heroId/monster/:monsterId", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       int heroId = Integer.parseInt(request.params(":heroId"));
