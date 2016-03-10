@@ -146,6 +146,7 @@ public class App {
 
     post("/heavyAttack/:heroId/monster/:monsterId", (request, response) -> {
      HashMap<String, Object> model = new HashMap<String, Object>();
+     int maxStamina = request.session().attribute("maxStamina");
      int heroId = Integer.parseInt(request.params(":heroId"));
      int monsterId = Integer.parseInt(request.params(":monsterId"));
      Hero hero = Hero.find(heroId);
@@ -176,6 +177,7 @@ public class App {
        } else {
          monster.updateMonsterStamina(newMonsterStamina);
      }}}
+       model.put("maxStamina", maxStamina);
        model.put("hero", hero);
        model.put("monster", monster);
        model.put("heroDamage", heroDamage);
@@ -200,8 +202,6 @@ public class App {
       int monsterId = Integer.parseInt(request.params(":monsterId"));
       Hero hero = Hero.find(heroId);
       Monster monster = Monster.find(monsterId);
-      int maxStamina = request.session().attribute("maxStamina");
-      model.put("maxStamina", maxStamina);
       model.put("hero", hero);
       model.put("monster", monster);
       model.put("template", "templates/in-fight.vtl");
