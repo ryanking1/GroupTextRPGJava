@@ -10,12 +10,88 @@ public class App {
     String layout = "templates/layout.vtl";
     staticFileLocation("/public");
 
+    /*          
+    before loading the /index endpoint, check to see if there is an account object
+    saved in session memory. If there is, proceed to /index. If there is NOT, halt
+    the request with a 401 error, and display message "You are not welcome here"
+    to the user
+    */
+    String[] restrictedEndPoints = {"/hero/*","/fight/*","/:id/*","/:heroId/*","/createHero","/fightBoss","/fight","/regularAttack/*","/heavyAttack/*","/monserDefeat/*","/heroDefeat/*"};
+
+    for(String endpoint : restrictedEndPoints){
+
+      before(endpoint, (request, response) -> {
+      boolean authenticated = false;
+      Player player = request.session().attribute("player");
+      if (player instanceof Player){
+        authenticated = true;
+      } 
+      if (!authenticated) {
+          halt(401, "You are not welcome here");
+      }
+      });
+    }
+
+    //REDIRECT FROM ROOT TO LOGIN
+    get("/", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      response.redirect("/login");
+      return null;
+    });
+
     //VIEW LOGIN
     get("/login", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/login.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    //CREATE PLAYER OBJECT
+    post("/login/new", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String userName = request.queryParams("userName");
+      String password = request.queryParams("password");
+      Player player = new Player(userName, password);
+      player.save();
+      response.redirect("/login");
+      return null;
+    });
+
+    /*
+    1. take username and password input from user
+    2. Check to see if the Account.find() method would result in an instance of an
+       Account object
+    3. If it does...
+      -Create an account object
+      -put account object into model
+      -save account object into session memory
+      -redirect to /index endpoint
+    4. If it does NOT... halt get request with 401 error
+    */
+
+    //LOGIN WITH EXISTING PLAYER
+    get("/login/existing", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String userName = request.queryParams("userName");
+      String password = request.queryParams("password");
+      if (Player.find(userName, password) instanceof Player) {
+        Player player = Player.find(userName, password);
+        model.put("player", player);
+        request.session().attribute("player", player);
+        response.redirect(String.format("/%d", player.getId()));
+      } else {
+        halt(401, "You are not welcome here");
+      }
+      return null;
+    });
+
+     //LOGOUT
+    get("/logout", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      request.session().removeAttribute("account");
+      response.redirect("/login");
+      return null;
+    });
 
     //GETS HERO vtl AFTER CHARACTER IS CREATED
     get("/hero/:id", (request, response) -> {
@@ -36,33 +112,6 @@ public class App {
       model.put("template", "templates/fight.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
-
-    //CREATE PLAYER OBJECT
-    post("/login/new", (request, response) -> {
-      HashMap<String, Object> model = new HashMap<String, Object>();
-      String userName = request.queryParams("userName");
-      String password = request.queryParams("password");
-      Player player = new Player(userName, password);
-      player.save();
-      response.redirect("/login");
-      return null;
-    });
-
-    //LOGIN WITH EXISTING PLAYER
-    get("/login/existing", (request, response) -> {
-      HashMap<String, Object> model = new HashMap<String, Object>();
-      String userName = request.queryParams("userName");
-      String password = request.queryParams("password");
-      if (Player.find(userName, password) instanceof Player) {
-        Player player = Player.find(userName, password);
-        model.put("player", player);
-        response.redirect(String.format("/%d", player.getId()));
-      } else {
-        response.redirect("/login");
-      }
-      return null;
-    });
 
     //VIEW PLAYER START SCREEN
     get("/:id", (request, response) -> {
