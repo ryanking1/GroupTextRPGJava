@@ -1,0 +1,24 @@
+hero.vtl
+
+<p>Welcome to the game $hero.getName()</p>
+
+<ul>
+<li>Speed: $hero.getSpeed()</li>
+<li>Attack: $hero.getAttack()</li>
+<li>Defense: $hero.getDefense()</li>
+<li>Stamina: $hero.getStamina()</li>
+<li>Experience: $hero.getExperience()</li>
+<li>Currency: $hero.getCurrency()</li>
+<li>Hero ID: $hero.getId()</li>
+</ul>
+
+
+<form action='/fight/$hero.getId()' method='post'>
+  <label for="monster">Select a Monster</label>
+  <select id='monsterLevel' name='monsterLevel' type='text'>
+      <option name='monsterLevel' value="Christian Fundie:$hero.getMonsterLevel()"> Christian Fundie </option>
+      <option name='monsterLevel' value="Chad Bro:$hero.getMonsterLevel()"> Chad Bro </option>
+      <option name='monsterLevel'value="Feminazi Scum:$hero.getMonsterLevel()"> Feminazi Scum </option>
+  </select>
+  <button type='submit'>Fight</button>
+</form>

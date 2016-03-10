@@ -1,0 +1,23 @@
+login.vtl
+
+<h1>Player Login</h1>
+
+<h3>Create Account</h3>
+<!-- FORM TO CREATE PLAYER OBJECT -->
+<form action="/login/new" method="post" class="form-inline">
+	<div class="form-group">
+		<input id="userName" name="userName" type="text" class="form-control" placeholder="username">
+		<input id="password" name="password" type="password" class="form-control" placeholder="password">
+		<button type="submit" class="btn btn-success">Create Account</button>
+	</div>
+</form>
+<br>
+<h3>Login</h3>
+<!-- FORM TO LOGIN TO EXISTING PLAYER ACCOUNT -->
+<form action="/login/existing" method="get" class="form-inline">
+	<div class="form-group">
+		<input id="userName" name="userName" type="text" class="form-control" placeholder="username">
+		<input id="password" name="password" type="password" class="form-control" placeholder="password">
+		<button type="submit" class="btn btn-success">Login to Existing Account</button>
+	</div>
+</form>

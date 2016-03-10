@@ -9,12 +9,18 @@ public class DatabaseRule extends ExternalResource {
 
   protected void after() {
     try(Connection con = DB.sql2o.open()) {
-      String deleteBandsQuery = "DELETE FROM bands *;";
-      String deleteVenuesQuery = "DELETE FROM venues *;";
-      String deleteBandsVenuesQuery = "DELETE FROM bands_venues *;";
-      con.createQuery(deleteBandsQuery).executeUpdate();
-      con.createQuery(deleteVenuesQuery).executeUpdate();
-      con.createQuery(deleteBandsVenuesQuery).executeUpdate();
+      String deleteArmorQuery = "DELETE FROM armor *;";
+      String deleteHeroQuery = "DELETE FROM hero *;";
+      String deletePlayerQuery = "DELETE FROM player *;";
+      String deleteMonsterQuery = "DELETE FROM monster *;";
+      String deleteWeaponQuery = "DELETE FROM weapon *;";
+      String deleteInventoryQuery = "DELETE FROM inventory *;";
+      con.createQuery(deleteArmorQuery).executeUpdate();
+      con.createQuery(deleteHeroQuery).executeUpdate();
+      con.createQuery(deletePlayerQuery).executeUpdate();
+      con.createQuery(deleteMonsterQuery).executeUpdate();
+      con.createQuery(deleteWeaponQuery).executeUpdate();
+      con.createQuery(deleteInventoryQuery).executeUpdate();
     }
-}
+  }
 }

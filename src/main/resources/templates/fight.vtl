@@ -1,0 +1,32 @@
+fight.vtl
+
+<ul>
+<li>Speed: $hero.getSpeed()</li>
+<li>Attack: $hero.getAttack()</li>
+<li>Defense: $hero.getDefense()</li>
+<li>Stamina: $hero.getStamina()</li>
+<li>Experience: $hero.getExperience()</li>
+<li>Currency: $hero.getCurrency()</li>
+<li>Hero ID: $hero.getId()</li>
+</ul>
+
+<ul>
+<li>Speed: $monster.getMonsterSpeed()</li>
+<li>Attack: $monster.getMonsterAttack()</li>
+<li>Defense: $monster.getMonsterDefense()</li>
+<li>Stamina: $monster.getMonsterStamina()</li>
+<li>Experience: $monster.getMonsterExp()</li>
+<li>Currency: $monster.getMonsterGold()</li>
+<li>MonsterID: $monster.getMonsterId()</li>
+
+</ul>
+
+You are fighting $monster.getMonsterName()
+
+<form action="/regularAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">Regular Attack</button>
+</form>
+
+<form action="/heavyAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">Heavy Attack</button>
+</form>
