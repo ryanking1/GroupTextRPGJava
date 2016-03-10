@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Hero {
   private int id;
+  private int level;
   private int beardChoice;
   private String name;
   private int experience;
@@ -194,6 +195,10 @@ public class Hero {
 
   public int getId() {
     return id;
+  }
+
+  public int getLevel() {
+    return level;
   }
 
   public int getBeardChoice() {
@@ -403,6 +408,26 @@ public class Hero {
   public void updateExp(int experience) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET experience = :experience WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("experience", experience)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void updateLevel(int level) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET level = :level WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("level", level)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void updateExpToNextLevel(int experienceToNextLevel) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE hero SET exp_to_next_level = :experienceToNextLevel WHERE id = :id";
       con.createQuery(sql)
       .addParameter("experience", experience)
       .addParameter("id", id)
