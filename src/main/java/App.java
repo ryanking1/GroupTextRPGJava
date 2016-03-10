@@ -27,15 +27,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    //redirects back to monster selection after winning a battle and clicking
-    //return to battle button
-    post("/battleAgain/:heroId", (request, response) -> {
-       int heroId = Integer.parseInt(request.params(":heroId"));
-       Hero hero = Hero.find(heroId);
-       response.redirect("/hero/" + heroId);
-       return null;
-     });
-
     //fight instantiation page
     get("/fight/:id", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
@@ -82,6 +73,61 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //Intro Page 1
+    get("/:id/intro1", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      model.put("hero", hero);
+      model.put("template", "templates/intro-1.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //Intro Page 2
+    get("/:id/intro2", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      model.put("hero", hero);
+      model.put("template", "templates/intro-2.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //Intro Page 3
+    get("/:id/intro3", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      model.put("hero", hero);
+      model.put("template", "templates/intro-3.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //First Treasure Page
+    get("/:heroId/treasure1/:monsterId", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":heroId")));
+      Monster monster = Monster.find(Integer.parseInt(request.params(":monsterId")));
+      hero.firstWeaponBonus();
+      hero.firstHeadgearBonus();
+      hero.firstArmorBonus();
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("template", "templates/treasure1.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //Last Treasure Page
+    get("/:heroId/treasure1/:monsterId", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":heroId")));
+      Monster monster = Monster.find(Integer.parseInt(request.params(":monsterId")));
+      hero.lastWeaponBonus();
+      hero.lastHeadgearBonus();
+      hero.lastArmorBonus();
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("template", "templates/treasure1.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     //SUBMITS BEARD CHOICE AND PLAYER NAME FORM
     post("/createHero", (request, response) -> {
        int beardChoice = Integer.parseInt(request.queryParams("heroType"));
@@ -89,7 +135,7 @@ public class App {
        Hero newHero = new Hero(name, beardChoice);
        newHero.save();
        int heroId = newHero.getId();
-       response.redirect("/hero/" + heroId);
+       response.redirect("/" + heroId + "/intro1");
        return null;
      });
 

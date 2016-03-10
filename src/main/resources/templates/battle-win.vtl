@@ -1,10 +1,12 @@
 battle-win
 
-
+<div class="container battleWin">
 Congratulations on beating $monster.getMonsterName()!
 <br>
 $hero.getName() you have earned $monster.getMonsterExp() experience, and $monster.getMonsterGold() Gold!
-<br>
-<form action='/battleAgain/$hero.getId()' method='post'>
-  <button type="submit">Return to Battle</button>
+</div>
+<div class="container fightButton">
+<form action='/hero/$hero.getId()' method='post'>
+  <button type="submit">Return to the Action</button>
 </form>
+</div>

@@ -23,7 +23,7 @@
 }
 
 .treasure {
-  
+
 }
 
 .ending1 {
@@ -32,6 +32,16 @@
 
 .endingLast {
 
+}
+
+.battleWin {
+
+}
+
+.fightButton {
+  margin-top: 25px;
+  color: #FF0000;
+  background-color: black;
 }
 
 .storyButton {
