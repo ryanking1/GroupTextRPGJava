@@ -115,7 +115,7 @@ public class App {
     }, new VelocityTemplateEngine());
 
     //Last Treasure Page
-    get("/:heroId/treasure1/:monsterId", (request, response) -> {
+    get("/:heroId/treasure2/:monsterId", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Hero hero = Hero.find(Integer.parseInt(request.params(":heroId")));
       Monster monster = Monster.find(Integer.parseInt(request.params(":monsterId")));
@@ -127,6 +127,30 @@ public class App {
       model.put("template", "templates/treasure1.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    //Speed Level Up
+    post("/hero/:id/levelSpeed", (request, response) -> {
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      int id = hero.getId();
+      hero.levelUpSpeed();
+      response.redirect("/hero/" + id)
+    )};
+
+    //Attack Level Up
+    post("/hero/:id/levelAttack", (request, response) -> {
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      int id = hero.getId();
+      hero.levelUpAttack();
+      response.redirect("/hero/" + id)
+    )};
+
+    //Defense Level Up
+    post("/hero/:id/levelAttack", (request, response) -> {
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      int id = hero.getId();
+      hero.levelUpDefense();
+      response.redirect("/hero/" + id)
+    )};
 
     //SUBMITS BEARD CHOICE AND PLAYER NAME FORM
     post("/createHero", (request, response) -> {
