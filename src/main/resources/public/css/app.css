@@ -19,10 +19,23 @@
 }
 
 .treasure2 {
+
+}
+
+.treasure {
   
 }
 
+.ending1 {
+
+}
+
+.endingLast {
+
+}
+
 .storyButton {
+  margin-top: 25px;
   color: #FF0000;
   background-color: black;
 }

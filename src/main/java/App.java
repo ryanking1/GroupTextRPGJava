@@ -3,6 +3,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
+import java.util.Random;
 
 public class App {
   public static void main(String[] args) {
@@ -15,6 +16,36 @@ public class App {
       model.put("template", "templates/login.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    //GETS HERO vtl AFTER CHARACTER IS CREATED
+    get("/hero/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params(":id"));
+      Hero hero = Hero.find(id);
+      model.put("hero", hero);
+      model.put("template", "templates/hero.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //redirects back to monster selection after winning a battle and clicking
+    //return to battle button
+    post("/battleAgain/:heroId", (request, response) -> {
+       int heroId = Integer.parseInt(request.params(":heroId"));
+       Hero hero = Hero.find(heroId);
+       response.redirect("/hero/" + heroId);
+       return null;
+     });
+
+    //fight instantiation page
+    get("/fight/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params(":id"));
+      Hero hero = Hero.find(id);
+      model.put("hero", hero);
+      model.put("template", "templates/fight.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
 
     //CREATE PLAYER OBJECT
     post("/login/new", (request, response) -> {
@@ -49,6 +80,168 @@ public class App {
       model.put("player", player);
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine()); 
+    }, new VelocityTemplateEngine());
+
+    //SUBMITS BEARD CHOICE AND PLAYER NAME FORM
+    post("/createHero", (request, response) -> {
+       int beardChoice = Integer.parseInt(request.queryParams("heroType"));
+       String name = request.queryParams("heroName");
+       Hero newHero = new Hero(name, beardChoice);
+       newHero.save();
+       int heroId = newHero.getId();
+       response.redirect("/hero/" + heroId);
+       return null;
+     });
+
+     //REDIRECTS TO BOSS FIGHT/CHEST(unfinished)
+     post("/fightBoss", (request, response) -> {
+      int heroId = Integer.parseInt(request.queryParams("heroId"));
+      response.redirect("/hero/" + heroId);
+      return null;
+    });
+
+    //SUBMITS ON CLICK OF FIGHT MONSTER AND REDIRECTS TO fight.vtl
+    post("/fight/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String monsterSplit = request.queryParams("monsterLevel");
+      String[] parts = monsterSplit.split(":");
+      String monsterName = parts[0];
+      int monsterLevel = Integer.parseInt(parts[1]);
+      int heroId = Integer.parseInt(request.params(":id"));
+      Hero hero = Hero.find(heroId);
+      int heroStamina = hero.getStamina();
+      request.session().attribute("maxStamina", heroStamina);
+      Monster monster = new Monster(monsterName, monsterLevel);
+      monster.save();
+      model.put("monster", monster);
+      model.put("hero", hero);
+      model.put("template", "templates/fight.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //Post for fight round with reg attack
+   post("/regularAttack/:heroId/monster/:monsterId", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    int maxStamina = request.session().attribute("maxStamina");
+    int heroId = Integer.parseInt(request.params(":heroId"));
+    int monsterId = Integer.parseInt(request.params(":monsterId"));
+    Hero hero = Hero.find(heroId);
+    Monster monster = Monster.find(monsterId);
+    int heroDefense = hero.getDefense();
+    int heroAttack = hero.getAttack();
+    int heroSpeed = hero.getSpeed();
+    int monsterDefense = monster.getMonsterDefense();
+    int monsterSpeed = monster.getMonsterSpeed();
+    int monsterAttack = monster.getMonsterAttack();
+    int heroDamage = hero.regAttack(heroAttack, monsterDefense);
+    int monsterDamage = monster.monsterAttack(monsterAttack, heroDefense);
+    int newHeroStamina = hero.getStamina() - monsterDamage;
+    int newMonsterStamina = monster.getMonsterStamina() - heroDamage;
+
+    if(hero.regSpeedCheck(heroSpeed, monsterSpeed) == true) {
+      monster.updateMonsterStamina(newMonsterStamina);
+      hero.updateStamina(newHeroStamina);
+    } else {
+      hero.updateStamina(newHeroStamina);
+      monster.updateMonsterStamina(newMonsterStamina);
+      }
+      model.put("maxStamina", maxStamina);
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("heroDamage", heroDamage);
+      model.put("monsterDamage", monsterDamage);
+      model.put("template", "templates/in-fight.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //post for fight round with heavy attack
+    post("/heavyAttack/:heroId/monster/:monsterId", (request, response) -> {
+     HashMap<String, Object> model = new HashMap<String, Object>();
+     int maxStamina = request.session().attribute("maxStamina");
+     int heroId = Integer.parseInt(request.params(":heroId"));
+     int monsterId = Integer.parseInt(request.params(":monsterId"));
+     Hero hero = Hero.find(heroId);
+     Monster monster = Monster.find(monsterId);
+     int heroDefense = hero.getDefense();
+     int heroAttack = hero.getAttack();
+     int heroSpeed = hero.getSpeed();
+     int monsterDefense = monster.getMonsterDefense();
+     int monsterSpeed = monster.getMonsterSpeed();
+     int monsterAttack = monster.getMonsterAttack();
+     int heroDamage = hero.heavyAttack(heroAttack, monsterDefense);
+     int monsterDamage = monster.monsterAttack(monsterAttack, heroDefense);
+     int newHeroStamina = hero.getStamina() - monsterDamage;
+     int newMonsterStamina = monster.getMonsterStamina() - heroDamage;
+
+     if(hero.regSpeedCheck(heroSpeed, monsterSpeed) == true) {
+       if(monster.isAlive() == false || hero.isAlive() == false) {
+        } else {
+          monster.updateMonsterStamina(newMonsterStamina);
+          if(monster.isAlive() == false || hero.isAlive() == false) {
+          } else {
+          hero.updateStamina(newHeroStamina);
+     }}} else {
+       if(monster.isAlive() == false || hero.isAlive() == false) {
+       } else {
+         hero.updateStamina(newHeroStamina);
+         if(monster.isAlive() == false || hero.isAlive() == false) {
+       } else {
+         monster.updateMonsterStamina(newMonsterStamina);
+     }}}
+       model.put("maxStamina", maxStamina);
+       model.put("hero", hero);
+       model.put("monster", monster);
+       model.put("heroDamage", heroDamage);
+       model.put("monsterDamage", monsterDamage);
+       model.put("template", "templates/in-fight.vtl");
+       return new ModelAndView(model, layout);
+     }, new VelocityTemplateEngine());
+
+     //get route for in-fight page(displays during fight rounds)
+    get("/fight/:heroId/monster/:monsterId", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int heroId = Integer.parseInt(request.params(":heroId"));
+      int monsterId = Integer.parseInt(request.params(":monsterId"));
+      Hero hero = Hero.find(heroId);
+      Monster monster = Monster.find(monsterId);
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("template", "templates/in-fight.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //post for defeating a monster, which updates hp, exp, and gold for the hero
+    //is run when user clicks the battle is over you win button
+    post("/monsterDefeat/:heroId/monster/:monsterId", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int heroId = Integer.parseInt(request.params(":heroId"));
+      int monsterId = Integer.parseInt(request.params(":monsterId"));
+      Hero hero = Hero.find(heroId);
+      Monster monster = Monster.find(monsterId);
+      int maxStamina = request.session().attribute("maxStamina");
+      int gold = (monster.getMonsterGold() + hero.getCurrency());
+      int experience = (monster.getMonsterExp() + hero.getExperience());
+      hero.updateStamina(maxStamina);
+      hero.updateGold(gold);
+      hero.updateExp(experience);
+      model.put("maxStamina", maxStamina);
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("template", "templates/battle-win.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    //goes to battle loss page after user clicks battle is over you lost button
+    post("/heroDefeat/:heroId/monster/:monsterId", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int heroId = Integer.parseInt(request.params(":heroId"));
+      int monsterId = Integer.parseInt(request.params(":monsterId"));
+      Hero hero = Hero.find(heroId);
+      Monster monster = Monster.find(monsterId);
+      model.put("hero", hero);
+      model.put("monster", monster);
+      model.put("template", "templates/battle-loss.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }

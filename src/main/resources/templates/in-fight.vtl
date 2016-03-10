@@ -1,0 +1,53 @@
+in-fight.vtl
+<div class="container float-right">
+<ul>
+<li>Speed: $hero.getSpeed()</li>
+<li>Attack: $hero.getAttack()</li>
+<li>Defense: $hero.getDefense()</li>
+<li>Stamina: $hero.getStamina()</li>
+<li>Experience: $hero.getExperience()</li>
+<li>Currency: $hero.getCurrency()</li>
+</ul>
+
+<ul>
+<li>Speed: $monster.getMonsterSpeed()</li>
+<li>Attack: $monster.getMonsterAttack()</li>
+<li>Defense: $monster.getMonsterDefense()</li>
+<li>Stamina: $monster.getMonsterStamina()</li>
+</ul>
+</div>
+
+<div class="container">
+You are fighting $monster.getMonsterName()!
+
+<form action="/regularAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">Regular Attack</button>
+</form>
+
+<form action="/heavyAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">Heavy Attack</button>
+</form>
+</div>
+<br>
+<div class="container">
+$hero.getName() attacked the $monster.getMonsterName() for $heroDamage!
+<br>
+<br>
+The $monster.getMonsterName() has attacked $hero.getName() for $monsterDamage!
+<br>
+<br>
+$monster.getMonsterName() has $monster.getMonsterStamina() left...
+</div>
+
+MaxStamina is: $maxStamina
+
+#if ($monster.isAlive() == false)
+<form action="/monsterDefeat/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">The battle is over. You win!</button>
+</form>
+#elseif ($hero.isAlive() == false)
+<form action="/heroDefeat/$hero.getId()/monster/$monster.getMonsterId()" method="post">
+  <button type="submit" class="btn btn-primary">The battle is over. You lost...</button>
+</form>
+#else
+#end

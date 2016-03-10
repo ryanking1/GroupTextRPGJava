@@ -1,13 +1,14 @@
 <div class="container treasure1">
+  <p class="treasure">  $hero.getName() found some loot after defeating $monster.getMonsterName(). He could feel himself getting stronger as he tried on his new garb.</p>
   <!-- //SwiftBeard -->
     #if(beardChoice == 1)
-      $hero.getName() found a pair of Gun-chucks, a Pinstripe Trilby, and a Suit Vest.
+      <p class="treasure">$hero.getName() found a pair of Gun-chucks, a Pinstripe Trilby, and a Suit Vest.</p>
   <!-- //HardBeard -->
     #elseif (beardChoice == 2)
-      $hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.
+      <p class="treasure">$hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.</p>
   <!-- //StrongBeard -->
     #else
-      $hero.getName() found a pair of Fingerless Leather Gloves, and a Felt Wool Bowler.
+    <p class="treasure">$hero.getName() found a pair of Fingerless Leather Gloves, and a Felt Wool Bowler.</p>
 </div>
 <div class="row">
   <div class="col-sm-4">
