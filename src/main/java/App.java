@@ -186,16 +186,6 @@ public class App {
        return new ModelAndView(model, layout);
      }, new VelocityTemplateEngine());
 
-    post("/heavyAttack/:heroId/monster/:monsterId", (request, response) -> {
-     int heroId = Integer.parseInt(request.params(":heroId"));
-     int monsterId = Integer.parseInt(request.params(":monsterId"));
-     Hero hero = Hero.find(heroId);
-     Monster monster = Monster.find(monsterId);
-
-     response.redirect("/fight/" + heroId + "/monster/" + monsterId);
-     return null;
-     });
-
     get("/fight/:heroId/monster/:monsterId", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       int heroId = Integer.parseInt(request.params(":heroId"));
