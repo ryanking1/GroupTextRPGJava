@@ -23,22 +23,22 @@ public class Monster {
   }
 
   public void setStats() {
-    if (monsterLevel >= 1 && monsterLevel <=2) {
+    if (monsterLevel ==3) {
       monsterAttack = 4;
       monsterDefense = 4;
       monsterSpeed = 4;
       monsterStamina = 8;
-    } else if (monsterLevel >=3 && monsterLevel <=4) {
+    } else if (monsterLevel >=4 && monsterLevel <=5) {
       monsterAttack = 6;
       monsterDefense = 6;
       monsterSpeed = 6;
       monsterStamina = 12;
-    } else if (monsterLevel >=5 && monsterLevel <=6) {
+    } else if (monsterLevel >=6 && monsterLevel <=7) {
       monsterAttack = 8;
       monsterDefense = 8;
       monsterSpeed = 8;
       monsterStamina = 16;
-    } else if (monsterLevel >=7 && monsterLevel <=8) {
+    } else if (monsterLevel >=8 && monsterLevel <=9) {
       monsterAttack = 10;
       monsterDefense = 10;
       monsterSpeed = 10;

@@ -19,7 +19,7 @@ Begin Fighting:
     $hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.
 //StrongBeard
   #else
-    $hero.getName() found a pair of Fingerless Leather Gloves, and a Wool Fedora.
+    $hero.getName() found a pair of Fingerless Leather Gloves, and a Felt Wool Bowler.
 
 //SwiftBeard
   #if(beardChoice == 1)
@@ -30,6 +30,10 @@ Begin Fighting:
 //StrongBeard
   #else
     $hero.getName() found a Replica Ezra's Hammer from Fairy Tail, a Leather Fedora, and Akai Uchiha from Naruto: The Next Generation fanfic.
+
+$hero.getName() vanquished the horrifying monster $monster.getMonsterName(). You live to troll another day. You also scrape $monster.getMonsterExp() euphoria points and $monster.getMonsterGold() bit coins.
+
+You were defeated by the horrifying $monster.getMonsterName(). You head home to eat your shame. Maybe you'll make it next Whinny City...at least you know Momo is always there for you...
 
 Ending:
 
