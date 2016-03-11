@@ -113,7 +113,9 @@ CREATE TABLE hero (
     speed integer,
     stamina integer,
     level integer,
-    exp_to_next_level integer
+    exp_to_next_level integer,
+    treasure_one boolean,
+    treasure_two boolean
 );
 
 
@@ -405,7 +407,27 @@ SELECT pg_catalog.setval('battle_id_seq', 1, false);
 -- Data for Name: hero; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level) FROM stdin;
+COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level, treasure_one, treasure_two) FROM stdin;
+56	1	dfdffd	0	0	4	4	6	10	\N	\N	\N	\N
+57	1	sdfsf	0	0	4	4	6	6	\N	\N	\N	\N
+58	1	asdasd	5	8	4	4	6	10	\N	\N	\N	\N
+59	1	hjkhk	0	0	4	4	6	10	\N	\N	\N	\N
+60	1	sadf	0	0	4	4	6	10	\N	\N	\N	\N
+61	1	asdasd	0	0	4	4	6	10	1	\N	\N	\N
+62	1	sdf	0	0	4	4	6	10	1	0	\N	\N
+63	1	adf	0	0	4	4	6	10	1	0	\N	\N
+64	1	asdas	0	0	4	4	6	10	1	0	\N	\N
+65	1	asd	3	6	4	4	6	10	1	0	\N	\N
+69	1	asdasd	13	21	4	4	6	10	1	9	\N	\N
+66	1	sdasd	4	10	4	4	6	10	1	0	\N	\N
+70	1	asdasd	0	0	4	4	6	-6	1	0	\N	\N
+71	1	asdasd	41	88	4	4	6	-6	1	13	\N	\N
+67	1	asdasd	8	14	4	4	6	10	1	3	\N	\N
+74	1	asdasd	33	72	4	4	6	10	1	-8	\N	\N
+73	1	afdads	14	32	4	4	6	-14	1	9	\N	\N
+68	1	asdasd	8	11	4	4	6	10	1	3	\N	\N
+72	1	asdasd	23	45	4	4	6	-6	1	30	\N	\N
+55	1	sdfsdf	17	42	4	4	6	-6	\N	\N	\N	\N
 \.
 
 
@@ -413,7 +435,7 @@ COPY hero (id, beard_choice, name, experience, gold, attack, defense, speed, sta
 -- Name: hero_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hero_id_seq', 54, true);
+SELECT pg_catalog.setval('hero_id_seq', 74, true);
 
 
 --
@@ -436,6 +458,21 @@ SELECT pg_catalog.setval('inventory_id_seq', 1, false);
 --
 
 COPY level (id, experience) FROM stdin;
+1	20
+2	40
+3	60
+4	80
+5	100
+6	120
+7	140
+8	160
+9	180
+10	200
+11	220
+12	240
+13	260
+14	280
+15	300
 \.
 
 
@@ -443,7 +480,7 @@ COPY level (id, experience) FROM stdin;
 -- Name: level_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('level_id_seq', 1, false);
+SELECT pg_catalog.setval('level_id_seq', 25, true);
 
 
 --
@@ -466,6 +503,7 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 15	Christian Fundie	6	6	11	6	12	4	3
 34	Christian Fundie	4	4	10	4	-8	5	4
 35	Chad Bro	4	4	10	4	0	3	4
+57	Christian Fundie	4	4	11	4	-4	4	4
 36	Christian Fundie	4	4	9	4	0	4	4
 37	Chad Bro	4	4	7	4	0	4	4
 22	Christian Fundie	6	6	6	6	-16	3	4
@@ -474,13 +512,19 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 25	Chad Bro	6	6	8	6	12	4	4
 38	Christian Fundie	4	4	8	4	4	4	4
 17	Christian Fundie	6	6	6	6	-2	3	4
+67	Christian Fundie	4	4	9	4	8	4	4
 49	Christian Fundie	4	4	7	4	-8	4	4
+68	Christian Fundie	4	4	11	4	8	3	4
 39	Christian Fundie	4	4	8	4	-4	3	4
+69	Christian Fundie	4	4	5	4	8	3	4
 40	Chad Bro	4	4	5	4	0	4	4
+58	Christian Fundie	4	4	10	4	-12	3	4
 50	Christian Fundie	4	4	7	4	0	4	4
 41	Christian Fundie	4	4	9	4	-12	5	4
 19	Christian Fundie	6	6	6	6	-56	4	5
+70	Christian Fundie	4	4	5	4	8	4	4
 42	Christian Fundie	4	4	5	4	-8	4	4
+71	Christian Fundie	4	4	9	4	8	5	4
 43	Christian Fundie	4	4	9	4	-8	3	4
 51	Christian Fundie	4	4	11	4	4	4	4
 26	Christian Fundie	4	4	8	4	-142	4	4
@@ -496,15 +540,64 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 21	Christian Fundie	6	6	6	6	-12	5	4
 16	Christian Fundie	6	6	11	6	12	3	3
 45	Christian Fundie	4	4	7	4	-4	5	4
+59	Christian Fundie	4	4	7	4	0	3	4
 46	Chad Bro	4	4	5	4	-4	3	4
 32	Chad Bro	4	4	8	4	-8	4	4
 33	Christian Fundie	4	4	5	4	0	5	4
 53	Feminazi Scum	4	4	8	4	-4	5	4
 47	Christian Fundie	4	4	11	4	-8	5	4
+76	Christian Fundie	4	4	5	4	-4	3	4
+60	Christian Fundie	4	4	6	4	-4	3	4
 54	Christian Fundie	4	4	6	4	0	4	4
 48	Christian Fundie	4	4	6	4	-8	4	4
 55	Christian Fundie	4	4	5	4	-4	5	4
+72	Christian Fundie	4	4	6	4	-8	3	4
+79	Christian Fundie	4	4	5	4	-4	5	4
+61	Christian Fundie	4	4	8	4	-8	4	4
 56	Christian Fundie	4	4	8	4	4	4	4
+73	Christian Fundie	4	4	10	4	-12	4	4
+62	Christian Fundie	4	4	6	4	4	5	4
+63	Christian Fundie	4	4	11	4	0	4	4
+77	Christian Fundie	4	4	6	4	-8	5	4
+64	Christian Fundie	4	4	8	4	0	5	4
+65	Christian Fundie	4	4	11	4	0	3	4
+66	Christian Fundie	4	4	10	4	8	3	4
+74	Christian Fundie	4	4	6	4	-16	3	4
+85	Christian Fundie	4	4	8	4	-8	4	4
+80	Christian Fundie	4	4	8	4	-4	4	4
+75	Christian Fundie	4	4	8	4	-4	5	4
+78	Christian Fundie	4	4	8	4	0	4	4
+82	Christian Fundie	4	4	10	4	-8	4	4
+81	Christian Fundie	4	4	9	4	0	3	4
+84	Christian Fundie	4	4	10	4	-4	5	4
+83	Christian Fundie	4	4	8	4	-8	3	4
+86	Christian Fundie	4	4	10	4	0	5	4
+87	Christian Fundie	4	4	9	4	-4	3	4
+88	Christian Fundie	4	4	10	4	0	5	4
+89	Christian Fundie	4	4	7	4	-8	5	4
+90	Christian Fundie	4	4	8	4	-8	4	4
+91	Christian Fundie	4	4	10	4	0	4	4
+92	Christian Fundie	4	4	5	4	0	4	4
+93	Christian Fundie	4	4	9	4	0	5	4
+94	Christian Fundie	4	4	5	4	-12	3	4
+95	Christian Fundie	4	4	7	4	-8	4	4
+96	Christian Fundie	4	4	11	4	-4	4	4
+97	Christian Fundie	4	4	8	4	-8	3	4
+98	Christian Fundie	4	4	6	4	4	3	4
+99	Christian Fundie	4	4	6	4	-8	3	4
+100	Christian Fundie	4	4	7	4	-8	4	4
+101	Christian Fundie	4	4	11	4	-8	4	4
+102	Christian Fundie	4	4	8	4	-8	3	4
+103	Christian Fundie	4	4	9	4	4	4	4
+104	Christian Fundie	4	4	9	4	-8	3	4
+105	Christian Fundie	4	4	6	4	-12	3	4
+106	Christian Fundie	4	4	7	4	-4	5	4
+107	Christian Fundie	4	4	9	4	0	4	4
+108	Christian Fundie	4	4	7	4	-8	4	4
+109	Christian Fundie	4	4	10	4	-4	3	4
+110	Christian Fundie	4	4	9	4	0	3	4
+111	Christian Fundie	4	4	5	4	0	3	4
+112	Christian Fundie	4	4	10	4	-8	5	4
 \.
 
 
@@ -512,7 +605,7 @@ COPY monster (id, monster_name, monster_defense, monster_attack, monster_gold, m
 -- Name: monster_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('monster_id_seq', 56, true);
+SELECT pg_catalog.setval('monster_id_seq', 112, true);
 
 
 --

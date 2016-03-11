@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Hero {
   private int id;
   private int level;
+  private int exp_to_next_level;
   private int beardChoice;
   private String name;
   private int experience;
@@ -203,13 +204,6 @@ public class Hero {
     return level;
   }
 
-  public boolean getTreasureOne() {
-    return treasure_one;
-  }
-  public boolean getTreasureTwo() {
-    return treasure_two;
-  }
-
   public int getBeardChoice() {
     return beardChoice;
   }
@@ -271,16 +265,19 @@ public class Hero {
       this.defense = 4;
       this.attack = 4;
       this.stamina = 10;
+      this.level = 1;
     } else if (beardChoice == 2) {
       this.speed = 4;
       this.defense = 6;
       this.attack = 4;
       this.stamina = 10;
+      this.level = 1;
     } else {
       this.speed = 4;
       this.defense = 4;
       this.attack = 6;
       this.stamina = 10;
+      this.level = 1;
     }
   }
 
@@ -292,6 +289,13 @@ public class Hero {
     }
     return isAlive;
   }
+
+ public boolean getTreasureOne() {
+   return treasure_one;
+ }
+ public boolean getTreasureTwo() {
+   return treasure_two;
+ }
 
   public int getMonsterLevel(){
     this.attack = attack;
@@ -340,7 +344,7 @@ public class Hero {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina)";
+      String sql = "INSERT INTO hero(beard_choice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level, treasure_one, treasure_two) VALUES (:beardChoice, :name, :experience, :gold, :attack, :defense, :speed, :stamina, :level, :exp_to_next_level, :treasure_one, :treasure_two)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("beardChoice", this.beardChoice)
         .addParameter("name", this.name)
@@ -350,6 +354,10 @@ public class Hero {
         .addParameter("defense", this.defense)
         .addParameter("speed", this.speed)
         .addParameter("stamina", this.stamina)
+        .addParameter("level", this.level)
+        .addParameter("exp_to_next_level", this.exp_to_next_level)
+        .addParameter("treasure_one", false)
+        .addParameter("treasure_two", false)
         .executeUpdate()
         .getKey();
     }
@@ -393,6 +401,7 @@ public class Hero {
       .executeUpdate();
     }
   }
+
 
   public void updateTreasureOneTrue() {
       try(Connection con = DB.sql2o.open()) {
@@ -474,9 +483,19 @@ public class Hero {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE hero SET exp_to_next_level = :experienceToNextLevel WHERE id = :id";
       con.createQuery(sql)
-      .addParameter("experience", experience)
       .addParameter("id", id)
+      .addParameter("experienceToNextLevel", experienceToNextLevel)
       .executeUpdate();
+    }
+  }
+
+  public Integer getNextLevelExp(int nextLevel) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT experience FROM level WHERE id = :nextLevel";
+      int experience = con.createQuery(sql)
+      .addParameter("nextLevel", nextLevel)
+      .executeAndFetchFirst(Integer.class);
+      return experience;
     }
   }
 

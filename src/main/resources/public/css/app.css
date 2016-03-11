@@ -50,16 +50,29 @@ body {
 
 }
 
-.fightButton {
+.heroButton {
   margin-top: 25px;
+  font-family: Comic Sans MS;
   color: #FF0000;
   background-color: black;
   padding: 10px 15px 10px 15px;
+  border-radius: 3px;
+}
+
+.fightButton {
+  margin-top: 25px;
+  font-family: Comic Sans MS;
+  color: #FF0000;
+  background-color: black;
+  padding: 10px 15px 10px 15px;
+  border-radius: 3px;
 }
 
 .storyButton {
   margin-top: 25px;
+  font-family: Comic Sans MS;
   color: #FF0000;
   background-color: black;
   padding: 10px 15px 10px 15px;
+  border-radius: 3px;
 }
