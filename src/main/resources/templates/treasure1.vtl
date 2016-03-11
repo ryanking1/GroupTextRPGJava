@@ -9,6 +9,7 @@
   <!-- //StrongBeard -->
     #else
     <p class="treasure">$hero.getName() found a pair of Fingerless Leather Gloves, and a Felt Wool Bowler.</p>
+    #end
 </div>
 <div class="row">
   <div class="col-sm-4">
@@ -19,10 +20,13 @@
         <img src="/images/checked-trilby.jpg" alt="Black and White Checked Trilby" />
       #else
         <img src="/images/wool-bowler.jpg" alt="Felt Wool Bowler" />
+      #end
     </div>
   </div>
   <div class="col-sm-4">
-
+    #if(beardChoice == 1)
+    <img src="/images/gunchucks.jpg" alt="Gunchucks" />
+    #end
   </div>
   <div class="col-sm-4">
 

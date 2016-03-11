@@ -7,6 +7,10 @@ body {
 
 }
 
+.image {
+  margin-bottom: 20px;
+}
+
 .fightInfo {
   font-size: 18px;
 }
@@ -69,7 +73,7 @@ body {
 }
 
 .storyButton {
-  margin-top: 25px;
+  margin-top: 35px;
   font-family: Comic Sans MS;
   color: #FF0000;
   background-color: black;

@@ -183,14 +183,13 @@ public class App {
       hero.levelUpSpeed();
       int level = hero.getLevel() + 1;
       hero.updateLevel(level);
-      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
-        hero.updateTreasureOneTrue();
-      }
-      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
-        hero.updateTreasureTwoTrue();
-      }
-      model.put("hero", hero);
-      model.put("template", "templates/hero.vtl");
+      if(hero.findLevel(id) == 4 && hero.findExperience(id) == 0)
+       {hero.updateTreasureOneTrue();}
+      if(hero.findLevel(id) == 7 && hero.findExperience(id) == 0)
+      {hero.updateTreasureTwoTrue();}
+      Hero hero1 = Hero.find(id);
+      model.put("hero", hero1);
+      model.put("template", "templates/level-up.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -202,14 +201,14 @@ public class App {
       hero.levelUpAttack();
       int level = hero.getLevel() + 1;
       hero.updateLevel(level);
-      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
-        hero.updateTreasureOneTrue();
-      }
-      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
-        hero.updateTreasureTwoTrue();
-      }
-      model.put("hero", hero);
-      model.put("template", "templates/hero.vtl");
+
+      if(hero.findLevel(id) == 4 && hero.findExperience(id) == 0)
+       {hero.updateTreasureOneTrue();}
+      if(hero.findLevel(id) == 7 && hero.findExperience(id) == 0)
+      {hero.updateTreasureTwoTrue();}
+      Hero hero1 = Hero.find(id);
+      model.put("hero", hero1);
+      model.put("template", "templates/level-up.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -221,14 +220,13 @@ public class App {
       hero.levelUpDefense();
       int level = hero.getLevel() + 1;
       hero.updateLevel(level);
-      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
-        hero.updateTreasureOneTrue();
-      }
-      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
-        hero.updateTreasureTwoTrue();
-      }
-      model.put("hero", hero);
-      model.put("template", "templates/hero.vtl");
+      if(hero.findLevel(id) == 4 && hero.findExperience(id) == 0)
+       {hero.updateTreasureOneTrue();}
+      if(hero.findLevel(id) == 7 && hero.findExperience(id) == 0)
+      {hero.updateTreasureTwoTrue();}
+      Hero hero1 = Hero.find(id);
+      model.put("hero", hero1);
+      model.put("template", "templates/level-up.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -240,14 +238,13 @@ public class App {
       hero.levelUpStamina();
       int level = hero.getLevel() + 1;
       hero.updateLevel(level);
-      if(hero.getLevel() == 4 && hero.getExperience() == 0) {
-        hero.updateTreasureOneTrue();
-      }
-      if(hero.getLevel() == 7 && hero.getExperience() == 0) {
-        hero.updateTreasureTwoTrue();
-      }
-      model.put("hero", hero);
-      model.put("template", "templates/hero.vtl");
+      if(hero.findLevel(id) == 4 && hero.findExperience(id) == 0)
+       {hero.updateTreasureOneTrue();}
+      if(hero.findLevel(id) == 7 && hero.findExperience(id) == 0)
+      {hero.updateTreasureTwoTrue();}
+      Hero hero1 = Hero.find(id);
+      model.put("hero", hero1);
+      model.put("template", "templates/level-up.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

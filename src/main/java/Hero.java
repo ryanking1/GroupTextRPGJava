@@ -405,16 +405,18 @@ public class Hero {
 
   public void updateTreasureOneTrue() {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "UPDATE hero SET treasure_one = true WHERE id = :id";
+        String sql = "UPDATE hero SET treasure_one = 'true' WHERE id = :id";
         con.createQuery(sql)
         .addParameter("id", id)
         .executeUpdate();
       }
     }
 
+
+
   public void updateTreasureOneFalse() {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "UPDATE hero SET treasure_one = false WHERE id = :id";
+        String sql = "UPDATE hero SET treasure_one = 'false' WHERE id = :id";
         con.createQuery(sql)
         .addParameter("id", id)
         .executeUpdate();
@@ -423,7 +425,7 @@ public class Hero {
 
   public void updateTreasureTwoTrue() {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "UPDATE hero SET treasure_two = true WHERE id = :id";
+        String sql = "UPDATE hero SET treasure_two = 'true' WHERE id = :id";
         con.createQuery(sql)
         .addParameter("id", id)
         .executeUpdate();
@@ -432,7 +434,7 @@ public class Hero {
 
     public void updateTreasureTwoFalse() {
         try(Connection con = DB.sql2o.open()) {
-          String sql = "UPDATE hero SET treasure_two = false WHERE id = :id";
+          String sql = "UPDATE hero SET treasure_two = 'false' WHERE id = :id";
           con.createQuery(sql)
           .addParameter("id", id)
           .executeUpdate();
@@ -508,4 +510,25 @@ public class Hero {
       return hero;
     }
   }
+
+  public static Integer findLevel(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT level FROM hero WHERE id = :id";
+      int heroLevel = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Integer.class);
+      return heroLevel;
+    }
+  }
+
+  public static Integer findExperience(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT experience FROM hero WHERE id = :id";
+      int heroExperience = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Integer.class);
+      return heroExperience;
+    }
+  }
+
 }
