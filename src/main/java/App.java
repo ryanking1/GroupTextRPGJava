@@ -158,7 +158,7 @@ public class App {
       hero.firstArmorBonus();
       hero.updateTreasureOneFalse();
       model.put("hero", hero);
-      model.put("template", "templates/treasure1.vtl");
+      model.put("template", "templates/treasure2.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

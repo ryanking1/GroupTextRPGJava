@@ -113,17 +113,17 @@ public class Hero {
   public void firstHeadgearBonus() {
     try(Connection con = DB.sql2o.open()) {
       if (beardChoice == 1) {
-        String swiftHeadgear = "UPDATE heroes SET speed = speed + 1 WHERE id = :id";
+        String swiftHeadgear = "UPDATE hero SET speed = speed + 1 WHERE id = :id";
         con.createQuery(swiftHeadgear)
         .addParameter("id", id)
         .executeUpdate();
       } else if (beardChoice == 2) {
-        String hardHeadgear = "UPDATE heroes SET defense = defense + 1 WHERE id = :id";
+        String hardHeadgear = "UPDATE hero SET defense = defense + 1 WHERE id = :id";
         con.createQuery(hardHeadgear)
         .addParameter("id", id)
         .executeUpdate();
       } else {
-        String strongHeadgear = "UPDATE heroes SET attack = attack + 1 WHERE id = :id";
+        String strongHeadgear = "UPDATE hero SET attack = attack + 1 WHERE id = :id";
         con.createQuery(strongHeadgear)
         .addParameter("id", id)
         .executeUpdate();
@@ -367,15 +367,15 @@ public class Hero {
 
   public static List<Hero> all(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina FROM heroes";
-      List<Hero> heroes = con.createQuery(sql).executeAndFetch(Hero.class);
-      return heroes;
+      String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina FROM hero";
+      List<Hero> hero = con.createQuery(sql).executeAndFetch(Hero.class);
+      return hero;
     }
   }
 
   public void delete() {
    try(Connection con = DB.sql2o.open()) {
-     String sql = "DELETE FROM heroes WHERE id = :id";
+     String sql = "DELETE FROM hero WHERE id = :id";
      con.createQuery(sql)
      .addParameter("id", id)
      .executeUpdate();

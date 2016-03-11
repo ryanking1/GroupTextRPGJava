@@ -20,14 +20,16 @@
 
 <div class="container fightInfo">
 You are fighting $monster.getMonsterName()!
-
+#if($monster.isAlive() == true)
 <form action="/regularAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
-  <button type="submit" class="btn btn-primary">Regular Attack</button>
+  <button type="submit" class="btn heroButton">Regular Attack</button>
 </form>
 
 <form action="/heavyAttack/$hero.getId()/monster/$monster.getMonsterId()" method="post">
-  <button type="submit" class="btn btn-primary">Heavy Attack</button>
+  <button type="submit" class="btn heroButton">Heavy Attack</button>
 </form>
+#else
+#end
 </div>
 <br>
 <div class="container">
@@ -46,11 +48,11 @@ MaxStamina is: $maxStamina
 
 #if ($monster.isAlive() == false)
 <form action="/monsterDefeat/$hero.getId()/monster/$monster.getMonsterId()" method="post">
-  <button type="submit" class="btn btn-primary">The battle is over. You win!</button>
+  <button type="submit" class="btn heroButton">The battle is over. You win!</button>
 </form>
 #elseif ($hero.isAlive() == false)
 <form action="/heroDefeat/$hero.getId()/monster/$monster.getMonsterId()" method="post">
-  <button type="submit" class="btn btn-primary">The battle is over. You lost...</button>
+  <button type="submit" class="btn heroButton">The battle is over. You lost...</button>
 </form>
 #else
 #end

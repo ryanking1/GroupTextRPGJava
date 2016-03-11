@@ -14,19 +14,19 @@
 
 
 #if ($hero.getTreasureOne() == true)
-<a href='/$hero.getId()/treasure1' type="btn btn-lg btn-warning">You found a treasure!</a>
+<a href='/$hero.getId()/treasure1' class="heroButton" type="btn btn-lg btn-warning">You found a treasure!</a>
 #end
 #if ($hero.getTreasureTwo() == true)
-<a href='/$hero.getId()/treasure2' type="btn btn-lg btn-warning">You found a treasure!</a>
+<a href='/$hero.getId()/treasure2' class="heroButton" type="btn btn-lg btn-warning">You found a treasure!</a>
 #end
 
 
 <form action='/fight/$hero.getId()' method='post'>
   <label for="monster">Select a Monster</label>
-  <select id='monsterLevel' name='monsterLevel' type='text'>
+  <select id='monsterLevel' name='monsterLevel' type='text' class="heroButton">
       <option name='monsterLevel' value="Christian Fundie:$hero.getMonsterLevel()"> Christian Fundie </option>
       <option name='monsterLevel' value="Chad Bro:$hero.getMonsterLevel()"> Chad Bro </option>
       <option name='monsterLevel'value="Feminazi Scum:$hero.getMonsterLevel()"> Feminazi Scum </option>
   </select>
-  <button type='submit'>Fight</button>
+  <button type='submit' class="heroButton">Fight</button>
 </form>

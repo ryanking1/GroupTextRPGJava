@@ -1,10 +1,10 @@
 <div class="container treasure1">
   <p class="treasure">  $hero.getName() found some loot after defeating the beast. He could feel himself getting stronger as he tried on his new garb.</p>
   <!-- //SwiftBeard -->
-    #if(beardChoice == 1)
+    #if($hero.getBeardChoice() == 1)
       <p class="treasure">$hero.getName() found a pair of Gun-chucks, a Pinstripe Trilby, and a Suit Vest.</p>
   <!-- //HardBeard -->
-    #elseif (beardChoice == 2)
+    #elseif ($hero.getBeardChoice() == 2)
       <p class="treasure">$hero.getName() found a Katana, a Black and White Checked Trilby, and an Army Surplus Trenchcoat.</p>
   <!-- //StrongBeard -->
     #else
@@ -14,9 +14,9 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="image">
-      #if(beardChoice == 1)
+      #if($hero.getBeardChoice() == 1)
         <img src="/images/pinstripe-trilby.jpg" alt="Pinstripe Trilby" />
-      #elseif (beardChoice == 2)
+      #elseif ($hero.getBeardChoice() == 2)
         <img src="/images/checked-trilby.jpg" alt="Black and White Checked Trilby" />
       #else
         <img src="/images/wool-bowler.jpg" alt="Felt Wool Bowler" />
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="col-sm-4">
-    #if(beardChoice == 1)
+    #if($hero.getBeardChoice() == 1)
     <img src="/images/gunchucks.jpg" alt="Gunchucks" />
     #end
   </div>

@@ -1,10 +1,10 @@
 <div class="container treasure2">
 <p class="treasure">  $hero.getName() found some loot after defeating $monster.getMonsterName(). He could feel himself getting stronger as he tried on his new garb.</p>
 <!-- //SwiftBeard -->
-  #if(beardChoice == 1)
+  #if($hero.getBeardChoice() == 1)
     <p class="treasure">$hero.getName() found a Replica Haruko's Bass From FLCL, Rainbow Dash's Winged Fedora, and a Vash Stampede from Trigun's Coat.</p>
 <!-- //HardBeard -->
-  #elseif (beardChoice == 2)
+  #elseif ($hero.getBeardChoice() == 2)
     <p class="treasure">$hero.getName() found a Replica Death Sythe from Soul Eater, a Satin Fedora, and Alvaro Garay from Want of Fortune's Sleeveless Battle Coat.</p>
 <!-- //StrongBeard -->
   #else
@@ -16,7 +16,7 @@
     <div class="image">
       #if(beardChoice == 1)
         <img src="/images/rainbow-dash-fedora.jpg" alt="Rainbow Dash's Fedora" />
-      #elseif (beardChoice == 2)
+      #elseif ($hero.getBeardChoice() == 2)
         <img src="/images/satin-fedora.jpg" alt="Satin Fedora" />
       #else
         <img src="/images/leather-fedora.jpg" alt="Leather Fedora" />
