@@ -1,9 +1,13 @@
 form {
   display: inline;
 }
+
 body {
   padding-top: 40px;
   font-size: 20px;
+  background-color: black;
+  color: white;
+  font-family: monospace;
 
 }
 
@@ -57,8 +61,17 @@ body {
 .heroButton {
   margin-top: 25px;
   font-family: Comic Sans MS;
-  color: #FF0000;
-  background-color: black;
+  color: black;
+  background-color: red;
+  padding: 10px 15px 10px 15px;
+  border-radius: 3px;
+}
+
+.heroButton :hover {
+  margin-top: 25px;
+  font-family: Comic Sans MS;
+  color: black;
+  background-color: #8C1717;
   padding: 10px 15px 10px 15px;
   border-radius: 3px;
 }
@@ -66,8 +79,17 @@ body {
 .fightButton {
   margin-top: 25px;
   font-family: Comic Sans MS;
-  color: #FF0000;
-  background-color: black;
+  color: black;
+  background-color: red;
+  padding: 10px 15px 10px 15px;
+  border-radius: 3px;
+}
+
+.fightButton :hover {
+  margin-top: 25px;
+  font-family: Comic Sans MS;
+  color: black;
+  background-color: #8C1717;
   padding: 10px 15px 10px 15px;
   border-radius: 3px;
 }
@@ -75,8 +97,17 @@ body {
 .storyButton {
   margin-top: 35px;
   font-family: Comic Sans MS;
-  color: #FF0000;
-  background-color: black;
+  color: black;
+  background-color: red;
+  padding: 10px 15px 10px 15px;
+  border-radius: 3px;
+}
+
+.heroButton :hover {
+  margin-top: 25px;
+  font-family: Comic Sans MS;
+  color: black;
+  background-color: #8C1717;
   padding: 10px 15px 10px 15px;
   border-radius: 3px;
 }
