@@ -150,30 +150,27 @@ public class App {
     }, new VelocityTemplateEngine());
 
     //First Treasure Page
-    get("/:heroId/treasure1/:monsterId", (request, response) -> {
+    get("/:heroId/treasure1", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Hero hero = Hero.find(Integer.parseInt(request.params(":heroId")));
-      Monster monster = Monster.find(Integer.parseInt(request.params(":monsterId")));
       hero.firstWeaponBonus();
       hero.firstHeadgearBonus();
       hero.firstArmorBonus();
       hero.updateTreasureOneFalse();
       model.put("hero", hero);
-      model.put("monster", monster);
       model.put("template", "templates/treasure1.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     //Last Treasure Page
-    get("/:heroId/treasure2/:monsterId", (request, response) -> {
+    get("/:heroId/treasure2", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Hero hero = Hero.find(Integer.parseInt(request.params(":heroId")));
-      Monster monster = Monster.find(Integer.parseInt(request.params(":monsterId")));
       hero.lastWeaponBonus();
       hero.lastHeadgearBonus();
       hero.lastArmorBonus();
+      hero.updateTreasureTwoFalse();
       model.put("hero", hero);
-      model.put("monster", monster);
       model.put("template", "templates/treasure1.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -430,6 +427,22 @@ public class App {
       model.put("hero", hero);
       model.put("monster", monster);
       model.put("template", "templates/battle-loss.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/hero/:id/ending1", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      model.put("hero", hero);
+      model.put("template", "templates/ending1.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/login", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Hero hero = Hero.find(Integer.parseInt(request.params(":id")));
+      model.put("hero", hero);
+      model.put("template", "templates/ending-last.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

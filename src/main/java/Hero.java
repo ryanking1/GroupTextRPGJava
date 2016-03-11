@@ -501,7 +501,7 @@ public class Hero {
 
   public static Hero find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina FROM hero WHERE id = :id";
+      String sql = "SELECT id, beard_choice AS beardChoice, name, experience, gold, attack, defense, speed, stamina, level, exp_to_next_level, treasure_one, treasure_two FROM hero WHERE id = :id";
       Hero hero = con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(Hero.class);
